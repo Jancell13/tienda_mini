@@ -6,9 +6,9 @@ import javax.swing.JOptionPane;
 
 public class Conexion {
     Connection cn;
-    String url = "jdbc:mysql://10.6.234.85:3306/tienda";
-    String user = "jd";
-    String pass = "1234";
+    String url = "jdbc:mysql://localhost:3306/tienda";
+    String user = "root";
+    String pass = "";
 
     public Connection getConection() {
         try {
@@ -20,3 +20,4 @@ public class Conexion {
         return cn;
     }
 }
+
