@@ -2,22 +2,24 @@ package modelo;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import javax.swing.JOptionPane;
 
 public class Conexion {
-    Connection cn;
-    String url = "jdbc:mysql://localhost:3306/tienda";
-    String user = "root";
-    String pass = "";
+    private static Conexion instance;
+    private final String url = "jdbc:mysql://localhost:3306/tienda";
+    private final String user = "root";
+    private final String pass = "";
 
-    public Connection getConection() {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            cn = DriverManager.getConnection(url, user, pass);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.toString(), "Base de datos Apagada", JOptionPane.ERROR_MESSAGE);
+    private Conexion() {}
+
+    public static Conexion getInstance() {
+        if (instance == null) {
+            instance = new Conexion();
         }
-        return cn;
+        return instance;
+    }
+
+    public Connection getConnection() throws Exception {
+        Class.forName("com.mysql.jdbc.Driver"); 
+        return DriverManager.getConnection(url, user, pass);
     }
 }
-
