@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-08-2025 a las 23:35:57
+-- Tiempo de generación: 27-08-2025 a las 00:31:56
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -20,6 +20,44 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `tienda`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cliente_entidad`
+--
+
+CREATE TABLE `cliente_entidad` (
+  `id` int(11) NOT NULL,
+  `id_cuenta_cliente` int(11) NOT NULL,
+  `id_cuenta_entidad` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cuenta_cliente`
+--
+
+CREATE TABLE `cuenta_cliente` (
+  `id` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `numero_cuenta` varchar(30) NOT NULL,
+  `saldo` decimal(12,2) NOT NULL DEFAULT 0.00
+) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cuenta_entidad`
+--
+
+CREATE TABLE `cuenta_entidad` (
+  `id` int(11) NOT NULL,
+  `nombre_entidad` varchar(100) NOT NULL,
+  `numero_cuenta` varchar(30) NOT NULL,
+  `saldo` decimal(12,2) NOT NULL DEFAULT 0.00
+) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -47,6 +85,21 @@ CREATE TABLE `metodo_pago` (
   `id` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `metodo_pago`
+--
+
+INSERT INTO `metodo_pago` (`id`, `nombre`) VALUES
+(8, 'apple pay'),
+(6, 'bitcoin'),
+(7, 'consignacion'),
+(3, 'efectivo'),
+(9, 'google pay'),
+(4, 'paypal'),
+(2, 'Tarjeta de Credito'),
+(1, 'Tarjeta de Debito'),
+(5, 'transferencia');
 
 -- --------------------------------------------------------
 
@@ -136,6 +189,29 @@ CREATE TABLE `usuario_rol` (
 --
 
 --
+-- Indices de la tabla `cliente_entidad`
+--
+ALTER TABLE `cliente_entidad`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_cuenta_cliente` (`id_cuenta_cliente`),
+  ADD KEY `id_cuenta_entidad` (`id_cuenta_entidad`);
+
+--
+-- Indices de la tabla `cuenta_cliente`
+--
+ALTER TABLE `cuenta_cliente`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `numero_cuenta` (`numero_cuenta`),
+  ADD KEY `id_usuario` (`id_usuario`);
+
+--
+-- Indices de la tabla `cuenta_entidad`
+--
+ALTER TABLE `cuenta_entidad`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `numero_cuenta` (`numero_cuenta`);
+
+--
 -- Indices de la tabla `historial`
 --
 ALTER TABLE `historial`
@@ -193,6 +269,24 @@ ALTER TABLE `usuario_rol`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `cliente_entidad`
+--
+ALTER TABLE `cliente_entidad`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `cuenta_cliente`
+--
+ALTER TABLE `cuenta_cliente`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `cuenta_entidad`
+--
+ALTER TABLE `cuenta_entidad`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `historial`
 --
 ALTER TABLE `historial`
@@ -202,7 +296,7 @@ ALTER TABLE `historial`
 -- AUTO_INCREMENT de la tabla `metodo_pago`
 --
 ALTER TABLE `metodo_pago`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
@@ -237,6 +331,19 @@ ALTER TABLE `usuario_rol`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `cliente_entidad`
+--
+ALTER TABLE `cliente_entidad`
+  ADD CONSTRAINT `cliente_entidad_ibfk_1` FOREIGN KEY (`id_cuenta_cliente`) REFERENCES `cuenta_cliente` (`id`),
+  ADD CONSTRAINT `cliente_entidad_ibfk_2` FOREIGN KEY (`id_cuenta_entidad`) REFERENCES `cuenta_entidad` (`id`);
+
+--
+-- Filtros para la tabla `cuenta_cliente`
+--
+ALTER TABLE `cuenta_cliente`
+  ADD CONSTRAINT `cuenta_cliente_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`);
 
 --
 -- Filtros para la tabla `historial`
