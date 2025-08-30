@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-08-2025 a las 22:19:05
+-- Tiempo de generación: 30-08-2025 a las 23:11:25
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -42,7 +42,6 @@ CREATE TABLE `cliente_entidad` (
 CREATE TABLE `cuenta_cliente` (
   `id` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
-  `numero_cuenta` varchar(30) NOT NULL,
   `saldo` decimal(12,2) NOT NULL DEFAULT 0.00
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_spanish_ci;
 
@@ -55,7 +54,6 @@ CREATE TABLE `cuenta_cliente` (
 CREATE TABLE `cuenta_entidad` (
   `id` int(11) NOT NULL,
   `nombre_entidad` varchar(100) NOT NULL,
-  `numero_cuenta` varchar(30) NOT NULL,
   `saldo` decimal(12,2) NOT NULL DEFAULT 0.00
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_spanish_ci;
 
@@ -208,15 +206,13 @@ ALTER TABLE `cliente_entidad`
 --
 ALTER TABLE `cuenta_cliente`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `numero_cuenta` (`numero_cuenta`),
   ADD KEY `id_usuario` (`id_usuario`);
 
 --
 -- Indices de la tabla `cuenta_entidad`
 --
 ALTER TABLE `cuenta_entidad`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `numero_cuenta` (`numero_cuenta`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `historial`
