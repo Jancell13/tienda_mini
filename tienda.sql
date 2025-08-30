@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-08-2025 a las 00:31:56
+-- Tiempo de generación: 30-08-2025 a las 18:34:26
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -67,8 +67,8 @@ CREATE TABLE `cuenta_entidad` (
 
 CREATE TABLE `historial` (
   `id` int(11) NOT NULL,
-  `id_usuario_producto` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
+  `id_producto` int(11) NOT NULL,
   `fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `cantidad_compra` int(11) NOT NULL,
   `precio_total` int(11) NOT NULL,
@@ -138,6 +138,14 @@ CREATE TABLE `rol` (
   `nombre` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `rol`
+--
+
+INSERT INTO `rol` (`id`, `nombre`) VALUES
+(1, 'Administrador'),
+(2, 'Cliente');
+
 -- --------------------------------------------------------
 
 --
@@ -148,29 +156,19 @@ CREATE TABLE `usuario` (
   `id` int(11) NOT NULL,
   `documento` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
-  `apellido` varchar(50) NOT NULL
+  `apellido` varchar(50) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `documento`, `nombre`, `apellido`) VALUES
-(1, 12345678, 'Ana', 'Gómez'),
-(2, 87654321, 'Carlos', 'López'),
-(3, 11223344, 'Sofía', 'Martínez');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `usuario_producto`
---
-
-CREATE TABLE `usuario_producto` (
-  `id` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL,
-  `id_producto` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_spanish_ci;
+INSERT INTO `usuario` (`id`, `documento`, `nombre`, `apellido`, `email`, `password`) VALUES
+(1, 12345678, 'Ana', 'Gómez', 'ana@gmail.com', 'ag1234'),
+(2, 87654321, 'Carlos', 'López', 'carlos@gmail.com', 'cl1234'),
+(3, 11223344, 'Sofía', 'Martínez', 'sofia@gmail.com', 'sm1234');
 
 -- --------------------------------------------------------
 
@@ -183,6 +181,15 @@ CREATE TABLE `usuario_rol` (
   `id_usuario` int(11) NOT NULL,
   `id_rol` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `usuario_rol`
+--
+
+INSERT INTO `usuario_rol` (`id`, `id_usuario`, `id_rol`) VALUES
+(1, 2, 1),
+(2, 1, 2),
+(3, 3, 2);
 
 --
 -- Índices para tablas volcadas
@@ -216,9 +223,9 @@ ALTER TABLE `cuenta_entidad`
 --
 ALTER TABLE `historial`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_usuario_producto` (`id_usuario_producto`),
   ADD KEY `id_usuario` (`id_usuario`),
-  ADD KEY `id_metodo_pago` (`id_metodo_pago`);
+  ADD KEY `id_metodo_pago` (`id_metodo_pago`),
+  ADD KEY `id_producto` (`id_producto`);
 
 --
 -- Indices de la tabla `metodo_pago`
@@ -247,14 +254,6 @@ ALTER TABLE `rol`
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `documento` (`documento`);
-
---
--- Indices de la tabla `usuario_producto`
---
-ALTER TABLE `usuario_producto`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_usuario` (`id_usuario`),
-  ADD KEY `id_producto` (`id_producto`);
 
 --
 -- Indices de la tabla `usuario_rol`
@@ -308,7 +307,7 @@ ALTER TABLE `producto`
 -- AUTO_INCREMENT de la tabla `rol`
 --
 ALTER TABLE `rol`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
@@ -317,16 +316,10 @@ ALTER TABLE `usuario`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT de la tabla `usuario_producto`
---
-ALTER TABLE `usuario_producto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `usuario_rol`
 --
 ALTER TABLE `usuario_rol`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restricciones para tablas volcadas
@@ -349,16 +342,9 @@ ALTER TABLE `cuenta_cliente`
 -- Filtros para la tabla `historial`
 --
 ALTER TABLE `historial`
-  ADD CONSTRAINT `historial_ibfk_1` FOREIGN KEY (`id_usuario_producto`) REFERENCES `usuario_producto` (`id`),
   ADD CONSTRAINT `historial_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`),
-  ADD CONSTRAINT `historial_ibfk_3` FOREIGN KEY (`id_metodo_pago`) REFERENCES `metodo_pago` (`id`);
-
---
--- Filtros para la tabla `usuario_producto`
---
-ALTER TABLE `usuario_producto`
-  ADD CONSTRAINT `usuario_producto_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`),
-  ADD CONSTRAINT `usuario_producto_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id`);
+  ADD CONSTRAINT `historial_ibfk_3` FOREIGN KEY (`id_metodo_pago`) REFERENCES `metodo_pago` (`id`),
+  ADD CONSTRAINT `historial_ibfk_4` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id`);
 
 --
 -- Filtros para la tabla `usuario_rol`
