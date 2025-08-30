@@ -1,7 +1,6 @@
 package vista;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -21,18 +20,17 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-public class Login extends JFrame {
-
+public class Registro extends JFrame{
+    //nombre, apellido, correo, documento,contraseña,
     public Container container;
     private JPanel logoPrime, formuSegun;
-    private JPanel containerLogo, containerFormu;
+    private JPanel containerFormu;
     private FlowLayout miflow;
-    public JTextField inputCorreo, inputContraseña;
+    public JTextField inputCorreo, inputContraseña,inputNombre,inputApellido,inputDocumento;
     private JLabel bienvenidos, login, logo;//titulos
-    private TitledBorder campoCorreo, campoContra;
-    public JButton ingresar;
-
-    public Login() throws IOException {
+    private TitledBorder campoCorreo, campoContra,campoNombre,campoApellido,campoDocumento;
+    public JButton registro;
+    public Registro() throws IOException {
         super("---LOGIN TIENDA MINI ---- ");
         container = getContentPane();
         miflow = new FlowLayout();
@@ -57,10 +55,25 @@ public class Login extends JFrame {
         auxFormu.setPreferredSize(new Dimension(200, 420));
 
         // Título
-        login = new JLabel("Inicio de Sesión");
+        login = new JLabel("Registro de Usuario");
         login.setFont(new Font("Times New Roman", Font.PLAIN, 30));
 
         // Campos
+        campoNombre = new TitledBorder("Nombres de Usuario*");
+        inputNombre = new JTextField(15);
+        inputNombre.setOpaque(false);
+        inputNombre.setBorder(campoNombre);
+        
+        campoApellido = new TitledBorder("Apellidos de usuario*");
+        inputApellido = new JTextField(15);
+        inputApellido.setOpaque(false);
+        inputApellido.setBorder(campoApellido);
+        
+        campoDocumento = new TitledBorder("Documento de usuario*");
+        inputDocumento = new JTextField(15);
+        inputDocumento.setOpaque(false);
+        inputDocumento.setBorder(campoDocumento);
+        
         campoCorreo = new TitledBorder("Correo Electronico");
         inputCorreo = new JTextField(15);
         inputCorreo.setOpaque(false);
@@ -72,14 +85,17 @@ public class Login extends JFrame {
         inputContraseña.setBorder(campoContra);
 
         // Botón
-        ingresar = new JButton("Iniciar Sesion");
+        registro = new JButton("Registrarse");
 
         // Panel que agrupa título, campos y botón en columna
         containerFormu = new JPanel(new GridLayout(0, 1, 10, 10));
         containerFormu.add(login);
+        containerFormu.add(inputDocumento);
+        containerFormu.add(inputNombre);
+        containerFormu.add(inputApellido);
         containerFormu.add(inputCorreo);
         containerFormu.add(inputContraseña);
-        containerFormu.add(ingresar);
+        containerFormu.add(registro);
 
         // Agrego containerFormu dentro de auxFormu
         auxFormu.add(containerFormu);
@@ -90,5 +106,4 @@ public class Login extends JFrame {
         container.add(logoPrime);
         container.add(formuSegun);
     }
-    
 }

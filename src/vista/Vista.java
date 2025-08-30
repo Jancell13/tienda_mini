@@ -19,12 +19,11 @@ import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-public class Vista extends JFrame implements ActionListener{
+public class Vista extends JFrame{
     private JPanel producMetodo,productoCompra,medioPago,medioPagoBtn,productos;
     private Container contenedor;
     public JComboBox modoDePago;
     public JButton pagar, registrar, invi;
-    public String ListaPago[]={"Hola","Mundo"};
     private JScrollPane miScroll, miScrollproductoCompra;
     private FlowLayout miflow;
     public JTable tabla,tablaProducto;
@@ -44,11 +43,13 @@ public class Vista extends JFrame implements ActionListener{
         //panel para los productoCompra, viene con scroll, tabla
         productoCompra = new JPanel(new GridLayout(1, 2,2,3));
         campos=new DefaultTableModel();
-        campos.addColumn("NombreProducto");
-        campos.addColumn("CantidadProducto");
+        campos.addColumn("Producto");
+        campos.addColumn("PrecioUnd");
+        campos.addColumn("Cantidad");
         campos.addColumn("PrecioTotal");
         tabla = new JTable(campos);
         tabla.getTableHeader().setReorderingAllowed(false);
+        tabla.getTableHeader().setResizingAllowed(false);
         miScrollproductoCompra=new JScrollPane(tabla);
         miScrollproductoCompra.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         productoCompra.add(miScrollproductoCompra);
@@ -60,13 +61,11 @@ public class Vista extends JFrame implements ActionListener{
         medioPago = new JPanel(new BorderLayout());
         
         medioPagoBtn = new JPanel(new GridLayout(2,2));
-        modoDePago = new JComboBox(ListaPago);
+        modoDePago = new JComboBox();
         pagar = new JButton("Pagar");
-        pagar.addActionListener(this);
         invi = new JButton("Pagar");
         invi.setVisible(false);
         registrar = new JButton("Registrar");
-        registrar.addActionListener(this);
         medioPagoBtn.add(modoDePago);
         medioPagoBtn.add(pagar);
         medioPagoBtn.add(invi);
@@ -80,6 +79,7 @@ public class Vista extends JFrame implements ActionListener{
         producMetodo.add(productoCompra);
         producMetodo.add(medioPago);
         
+        
         //panel de abajo que va a contener todos lo productos con su nombre,id,cantiStock y demas
         productos = new JPanel(new BorderLayout());
         productos.setPreferredSize(new Dimension(651, 450));
@@ -91,6 +91,7 @@ public class Vista extends JFrame implements ActionListener{
         tablaProducto = new JTable(camposProducto);
         //comando para evitar que muevan el healer con el mouse
         tablaProducto.getTableHeader().setReorderingAllowed(false);
+        tablaProducto.getTableHeader().setResizingAllowed(false);
         miScroll=new JScrollPane(tablaProducto);
         miScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         miScroll.setPreferredSize(new Dimension(641, 450));

@@ -29,10 +29,9 @@ public class metodosDePagos extends JFrame  {
     private JTextField numTarjeDebito,fechaTarjeDebito,numCvvDebito;
     private JLabel titleNombreCredito,titleCredito,titleFechaCredito,titleCvvCredito,titleMontoCredi,montoCredito;
     private JTextField nombreCredito,numTarjeCredito,fechaTarjeCredito,numCvvCredito;
-    private JLabel titleNomTrans,titleNumCuenTra,titleNomBanTra,titleNumContaTra,titleMontoTrans;
-    private JTextField codigoConsig,correoPaypal;
-    private JLabel titleConsig,titleCorreoPaypal;
-    private JTextField codigoEfectivo;
+    private JLabel titleNomTrans,titleNumCuenTra,titleNomBanTra,titleNumContaTra,titleMontoTrans,codigoConsig;
+    private JTextField correoPaypal;
+    private JLabel titleConsig,titleCorreoPaypal,codigoEfectivo;
     private JLabel titleEfectivo;
     private JTextField nomTrans,numCuentaTra,nomBanTra,numContaTra,montoTrans;
     public JPanel tarjetaCredito,tarjetaDebito,transferencia,consignacion,efectivo,paypal,bitcoin,applePay,googlePay;
@@ -49,7 +48,7 @@ public class metodosDePagos extends JFrame  {
         container.setLayout(miflow);
         
         //Agrego la tarjeta de debito
-        tarjetaDebito = new JPanel(new GridLayout(4,2,2,2));
+        tarjetaDebito = new JPanel(new GridLayout(0,2,2,2));
         titulo = new TitledBorder("Tarjeta de Debito");
         tarjetaDebito.setBorder(titulo);
         
@@ -62,6 +61,10 @@ public class metodosDePagos extends JFrame  {
         titleCvvDebito = new JLabel("CVV");
         numCvvDebito = new JTextField(10);
         
+        titleMontoCredi = new JLabel("Monto a pagar");
+        montoCredito = new JLabel();
+        montoCredito.setHorizontalAlignment(SwingConstants.RIGHT);//
+        
         confirDebito = new JButton("Continue");
         
         tarjetaDebito.add(titleDebito);
@@ -70,6 +73,8 @@ public class metodosDePagos extends JFrame  {
         tarjetaDebito.add(fechaTarjeDebito);
         tarjetaDebito.add(titleCvvDebito);
         tarjetaDebito.add(numCvvDebito);
+        tarjetaDebito.add(titleMontoCredi);
+        tarjetaDebito.add(montoCredito);
         tarjetaDebito.add(confirDebito);
         
         //Agrego la tarjeta de credito
@@ -144,28 +149,42 @@ public class metodosDePagos extends JFrame  {
         transferencia.add(confirTransfer);
         
         //consignación
-        consignacion = new JPanel(new FlowLayout());
+        consignacion = new JPanel(new GridLayout(0,2,2,2));
         titulo4 = new TitledBorder("Consignacion");
         consignacion.setBorder(titulo4);
         
         titleConsig = new JLabel("Codigo");
-        codigoConsig = new JTextField(10);
-        codigoConsig.setEditable(false);
+        codigoConsig = new JLabel();
+        codigoConsig.setEnabled(false);
+        codigoConsig.setHorizontalAlignment(SwingConstants.RIGHT);
+        
+        titleMontoCredi = new JLabel("Monto a pagar");
+        montoCredito = new JLabel();
+        montoCredito.setHorizontalAlignment(SwingConstants.RIGHT);
         
         consignacion.add(titleConsig);
         consignacion.add(codigoConsig);
+        consignacion.add(titleMontoCredi);
+        consignacion.add(montoCredito);
         
         //Efectivo
-        efectivo = new JPanel(new FlowLayout());
+        efectivo = new JPanel(new GridLayout(0,2,2,2));
         titulo5 = new TitledBorder("Efectivo");
         efectivo.setBorder(titulo5);
         
         titleEfectivo = new JLabel("Codigo Efecty");
-        codigoEfectivo = new JTextField(10);
-        codigoEfectivo.setEditable(false);
+        codigoEfectivo = new JLabel();
+        codigoEfectivo.setEnabled(false);
+        codigoEfectivo.setHorizontalAlignment(SwingConstants.RIGHT);
+        
+        titleMontoCredi = new JLabel("Monto a pagar");
+        montoCredito = new JLabel();
+        montoCredito.setHorizontalAlignment(SwingConstants.RIGHT);
         
         efectivo.add(titleEfectivo);
         efectivo.add(codigoEfectivo);
+        efectivo.add(titleMontoCredi);
+        efectivo.add(montoCredito);
         
         //paypal       -       correo
         paypal = new JPanel(new GridLayout(0,2,2,2));
@@ -175,15 +194,21 @@ public class metodosDePagos extends JFrame  {
         titleCorreoPaypal = new JLabel("Correo de Paypal");
         correoPaypal = new JTextField(15);
         
+        titleMontoCredi = new JLabel("Monto a pagar");
+        montoCredito = new JLabel();
+        montoCredito.setHorizontalAlignment(SwingConstants.RIGHT);
+        
         paypal.add(titleCorreoPaypal);
         paypal.add(correoPaypal);
+        paypal.add(titleMontoCredi);
+        paypal.add(montoCredito);
         
         //bitcoin  -  codigo QR
         JLabel pagarParaComprar = new JLabel("Escanear");
         bitcoin = new JPanel(new FlowLayout());
         titulo7 = new TitledBorder("Bitcoin");
         codigoQr = new JPanel(new GridBagLayout());
-        ImageIcon icono = new ImageIcon("C:\\Users\\ASUS VIVOBOOK\\Downloads\\codigoQr.png");
+        ImageIcon icono = new ImageIcon("src/imgs/codigoQr.png");
         JLabel etiquetaImagen = new JLabel(icono);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -202,7 +227,7 @@ public class metodosDePagos extends JFrame  {
         applePay = new JPanel(new FlowLayout());
         titulo8 = new TitledBorder("ApplePay");
         codigoQrApple = new JPanel(new GridBagLayout());
-        ImageIcon iconoFace = new ImageIcon("C:\\Users\\ASUS VIVOBOOK\\Downloads\\faceID.png");
+        ImageIcon iconoFace = new ImageIcon("src/imgs/faceID.png");
         JLabel etiquetaFace = new JLabel(iconoFace);
         GridBagConstraints rgb = new GridBagConstraints();
         rgb.gridx = 0;
