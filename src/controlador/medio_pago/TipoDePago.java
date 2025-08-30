@@ -1,0 +1,6 @@
+package controlador.medio_pago;
+
+public enum TipoDePago {
+    PAYPAL, EFECTIVO, TARJETA_DEBITO, TARJETA_CREDITO, TRANSFERENCIAS,
+    BITCOIN, CONSIGNACION, APPLE_PAY, GOOGLE_PAY;
+}

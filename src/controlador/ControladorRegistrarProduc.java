@@ -26,9 +26,8 @@ public class ControladorRegistrarProduc implements ActionListener, MouseListener
         this.viewR.buscar.addActionListener(this);
         this.viewR.eliminar.addActionListener(this);
         this.viewR.actualizar.addActionListener(this);
+        this.viewR.actualizar.setEnabled(false);
         this.viewR.registrar.addActionListener(this);
-        this.viewR.enviar.setEnabled(false);
-        this.viewR.enviar.addActionListener(this);
         this.viewR.limpiar.addActionListener(this);
         getListar(viewR.tabla);
         viewR.tabla.addMouseListener(this);
@@ -39,7 +38,7 @@ public class ControladorRegistrarProduc implements ActionListener, MouseListener
     public void mouseClicked(MouseEvent me) {
         if (me.getClickCount() == 2) {
             flag = true;
-            viewR.enviar.setEnabled(flag);
+            viewR.actualizar.setEnabled(flag);
             int fila = viewR.tabla.getSelectedRow();
 
             if (fila == -1 && viewR.tid.getText().isEmpty()) {
@@ -106,27 +105,15 @@ public class ControladorRegistrarProduc implements ActionListener, MouseListener
         }
 
         if (ae.getSource() == viewR.actualizar) {
-            flag = true;
-            viewR.enviar.setEnabled(flag);
-            int fila = viewR.tabla.getSelectedRow();
-
-            if (fila == -1 && viewR.tid.getText().isEmpty()) {
-                // falta comparacion de todos los campos
-                JOptionPane.showMessageDialog(viewR, "debe seleccionar la fila o dilgenciar todos los campos");
-            } else {
-                int id = Integer.parseInt(viewR.tabla.getValueAt(fila, 0).toString());
-                String nombre = viewR.tabla.getValueAt(fila, 1).toString();
-                String precio = viewR.tabla.getValueAt(fila, 2).toString();
-                String cantidad = viewR.tabla.getValueAt(fila, 3).toString();
-                viewR.tid.setText("" + id);
-                viewR.tid.setEnabled(false);
-                viewR.tnombre.setText(nombre);
-                viewR.tprecio.setText(precio);
-                viewR.tcantidad.setText(cantidad);
-
-            }
+            int id = Integer.parseInt(viewR.tid.getText());
+            setUpdate(id);
+            flag = false;
+            viewR.tid.setEnabled(true);
+            limpiarTabla();
+            limpiarCampos();
+            getListar(viewR.tabla);
         }
-        if (ae.getSource() == viewR.enviar && flag == true) {
+        /* if (ae.getSource() == viewR.registrar && flag == true) {
 
             int id = Integer.parseInt(viewR.tid.getText());
             setUpdate(id);
@@ -135,7 +122,7 @@ public class ControladorRegistrarProduc implements ActionListener, MouseListener
             limpiarTabla();
             limpiarCampos();
             getListar(viewR.tabla);
-        }
+        } */
     }
 
     public void getListar(JTable tabla) {

@@ -11,12 +11,16 @@ import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
 
+import controlador.medio_pago.PagoFactory;
+import controlador.medio_pago.Pagos;
+import controlador.medio_pago.TipoDePago;
 import modelo.MetodoPago;
 import modelo.MetodoPagoDao;
 import modelo.Producto;
 import modelo.ProductoDao;
 import vista.Vista;
 import vista.VistaRegistrar;
+import vista.metodosDePagos;
 
 public class Controlador implements ActionListener, MouseListener {
     public ProductoDao pdao = new ProductoDao();
@@ -38,111 +42,103 @@ public class Controlador implements ActionListener, MouseListener {
     }
 
     @Override
-public void mouseClicked(MouseEvent me) {
-    if (me.getClickCount() == 2) {
-        int fila = view.tablaProducto.getSelectedRow();
+    public void mouseClicked(MouseEvent me) {
+        if (me.getClickCount() == 2) {
+            int fila = view.tablaProducto.getSelectedRow();
 
-        if (fila == -1) {
-            JOptionPane.showMessageDialog(view, "error en algo");
-        } else {
-            JOptionPane.showMessageDialog(view, "Funciona");
-            String nombre = view.tablaProducto.getValueAt(fila, 0).toString();
-            String precio = view.tablaProducto.getValueAt(fila, 1).toString();
-            String cantidad = view.tablaProducto.getValueAt(fila, 2).toString();
-            
-            view.tabla.setValueAt(nombre,1,0);
-            view.tabla.setValueAt(precio,1,1);
-            view.tabla.setValueAt(cantidad,1,2);
+            if (fila == -1) {
+                JOptionPane.showMessageDialog(view, "Debe seleccionar un producto");
+            } else {
+                String nombre = view.tablaProducto.getValueAt(fila, 1).toString();
+                
+                double precioUnitario = Double.parseDouble(view.tablaProducto.getValueAt(fila, 2).toString());
+                double precioU = Double.parseDouble(view.tablaProducto.getValueAt(fila, 2).toString());
+                DefaultTableModel modeloDestino = (DefaultTableModel) view.tabla.getModel();
+                boolean encontrado = false;
+
+                for (int i = 0; i < modeloDestino.getRowCount(); i++) {
+                    String nombreEnTabla = modeloDestino.getValueAt(i, 0).toString();
+
+                    if (nombreEnTabla.equals(nombre)) {
+                        int cantidadActual = Integer.parseInt(modeloDestino.getValueAt(i, 2).toString());
+                        int nuevaCantidad = cantidadActual + 1;
+                        modeloDestino.setValueAt(nuevaCantidad, i, 2);
+                        double nuevoTotal = precioUnitario * nuevaCantidad;
+                        modeloDestino.setValueAt(nuevoTotal, i, 3);
+                        encontrado = true;
+                        break;
+                    }
+                }
+                if (!encontrado) {
+                    modeloDestino.addRow(new Object[] { nombre, precioU, 1, precioUnitario });
+                }
+            }
         }
     }
-}
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        if (e.getSource() == view.pagar) {
 
+            PagoFactory pagoFactory = new PagoFactory();
+            double valorTotal = 0;
 
-        /*
-         * if (e.getSource() == view.limpiar) {
-         * limpiarCampos();
-         * }
-         */
-        /*
-         * if (e.getSource() == view.enviar) {
-         * view.txtId.setEditable(true);
-         * flag = false;
-         * view.enviar.setEnabled(flag);
-         * updateUser(Integer.parseInt(view.txtId.getText()));
-         * limpiarCampos();
-         * limpiarTabla();
-         * getListar(view.tabla);
-         * }
-         */
-        /*
-         * if (e.getSource() == view.actualizar) {
-         * flag = true;
-         * view.enviar.setEnabled(flag);
-         * int fila = view.tabla.getSelectedRow();
-         * 
-         * if (fila == -1 && view.txtId.getText().isEmpty()) {
-         * JOptionPane.showMessageDialog(view,
-         * "debe seleccionar una fila o diligenciar todos los campos");
-         * } else {
-         * String id = view.tabla.getValueAt(fila, 0).toString();
-         * String nombre = view.tabla.getValueAt(fila, 1).toString();
-         * String apellido = view.tabla.getValueAt(fila, 2).toString();
-         * String salario = view.tabla.getValueAt(fila, 3).toString();
-         * String profesion = view.tabla.getValueAt(fila, 4).toString();
-         * String entidad = view.tabla.getValueAt(fila, 5).toString();
-         * view.txtId.setText(id);
-         * view.txtId.setEditable(false);
-         * view.txtNombre.setText(nombre);
-         * view.txtApellido.setText(apellido);
-         * view.txtSalario.setText(salario);
-         * view.txtProfesion.setText(profesion);
-         * view.listaE.setSelectedItem(entidad);
-         * }
-         * 
-         * }
-         */
-        /*
-         * if (e.getSource() == view.eliminar) {
-         * int fila = view.tabla.getSelectedRow();
-         * if (!view.txtId.getText().isEmpty()) {
-         * int id = Integer.parseInt(view.txtId.getText());
-         * deleteUser(id);
-         * } else if (fila != -1) {
-         * int id = Integer.parseInt(view.tabla.getValueAt(fila, 0).toString());
-         * deleteUser(id);
-         * } else {
-         * JOptionPane.showMessageDialog(view,
-         * "falta el id o debe seleccionar la fila que quiere eliminar");
-         * }
-         * limpiarCampos();
-         * limpiarTabla();
-         * getListar(view.tabla);
-         * }
-         */
-        /*
-         * if (e.getSource() == view.registrar) {
-         * if (!view.txtId.getText().isEmpty() && !view.txtNombre.getText().isEmpty()
-         * && !view.txtPrecio.getText().isEmpty() &&
-         * !view.txtCantidad.getText().isEmpty()
-         * && !view.txtId.getText().isEmpty() &&
-         * !view.listaE.getSelectedItem().equals("Seleccionar")) {
-         * 
-         * setAdd();
-         * } else {
-         * JOptionPane.showMessageDialog(view, "Faltan campos por ingresar");
-         * }
-         * limpiarCampos();
-         * limpiarTabla();
-         * getListar(view.tabla);
-         * }
-         */
+            for (int i = 0; i < view.tabla.getModel().getRowCount(); i++) {
+                valorTotal += Double.parseDouble(view.tabla.getModel().getValueAt(i, 2).toString());
+            }
+
+            if (view.modoDePago.getSelectedItem().equals("Tarjeta de Credito")) {
+                Pagos pagos = pagoFactory.obtenerPago(TipoDePago.TARJETA_CREDITO);
+                pagos.crearPago(valorTotal);
+                
+            }
+            if (view.modoDePago.getSelectedItem().equals("efectivo")) {
+                Pagos pagos = pagoFactory.obtenerPago(TipoDePago.EFECTIVO);
+                pagos.crearPago(valorTotal);                
+            }
+            if (view.modoDePago.getSelectedItem().equals("paypal")) {
+                Pagos pagos = pagoFactory.obtenerPago(TipoDePago.PAYPAL);
+                pagos.crearPago(valorTotal);
+
+            }
+            if (view.modoDePago.getSelectedItem().equals("consignacion")) {
+                Pagos pagos = pagoFactory.obtenerPago(TipoDePago.CONSIGNACION);
+                pagos.crearPago(valorTotal);
+            }
+            if (view.modoDePago.getSelectedItem().equals("bitcoin")) {
+                Pagos pagos = pagoFactory.obtenerPago(TipoDePago.BITCOIN);
+                pagos.crearPago(valorTotal);
+            }
+            if (view.modoDePago.getSelectedItem().equals("Tarjeta de Debito")) {
+                Pagos pagos = pagoFactory.obtenerPago(TipoDePago.TARJETA_DEBITO);
+                pagos.crearPago(valorTotal);
+            }
+            if (view.modoDePago.getSelectedItem().equals("apple pay")) {
+                Pagos pagos = pagoFactory.obtenerPago(TipoDePago.APPLE_PAY);
+                pagos.crearPago(valorTotal);
+            }
+            
+             /*  if (view.modoDePago.getSelectedItem().equals("google pay")) {
+              
+              metodosDePagos viewP = new metodosDePagos();
+              viewP.listarMetodoGooglePay();
+              viewP.setSize(270, 185);
+              viewP.setVisible(true);
+              viewP.setLocationRelativeTo(null);
+              } */
+            
+            if (view.modoDePago.getSelectedItem().equals("transferencia")) {
+                Pagos pagos = pagoFactory.obtenerPago(TipoDePago.TRANSFERENCIAS);
+                pagos.crearPago(valorTotal);
+
+            }
+        }
 
         if (e.getSource() == view.registrar) {
 
             VistaRegistrar viewR = new VistaRegistrar();
+            ControladorRegistrarProduc c = new ControladorRegistrarProduc(viewR);
             viewR.setSize(520, 720);
             viewR.setVisible(true);
             viewR.setLocationRelativeTo(null);
@@ -253,16 +249,19 @@ public void mouseClicked(MouseEvent me) {
         }
     }
 
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
 
     @Override
-    public void mousePressed(MouseEvent e) {}
+    public void mouseReleased(MouseEvent e) {
+    }
 
     @Override
-    public void mouseReleased(MouseEvent e) {}
+    public void mouseEntered(MouseEvent e) {
+    }
 
     @Override
-    public void mouseEntered(MouseEvent e) {}
-
-    @Override
-    public void mouseExited(MouseEvent e) {}
+    public void mouseExited(MouseEvent e) {
+    }
 }
