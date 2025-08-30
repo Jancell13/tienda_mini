@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-08-2025 a las 23:11:25
+-- Tiempo de generación: 30-08-2025 a las 23:34:56
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -24,18 +24,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `cliente_entidad`
---
-
-CREATE TABLE `cliente_entidad` (
-  `id` int(11) NOT NULL,
-  `id_cuenta_cliente` int(11) NOT NULL,
-  `id_cuenta_entidad` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_spanish_ci;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `cuenta_cliente`
 --
 
@@ -45,6 +33,14 @@ CREATE TABLE `cuenta_cliente` (
   `saldo` decimal(12,2) NOT NULL DEFAULT 0.00
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `cuenta_cliente`
+--
+
+INSERT INTO `cuenta_cliente` (`id`, `id_usuario`, `saldo`) VALUES
+(1, 1, 3000000.00),
+(2, 3, 500.00);
+
 -- --------------------------------------------------------
 
 --
@@ -53,9 +49,15 @@ CREATE TABLE `cuenta_cliente` (
 
 CREATE TABLE `cuenta_entidad` (
   `id` int(11) NOT NULL,
-  `nombre_entidad` varchar(100) NOT NULL,
   `saldo` decimal(12,2) NOT NULL DEFAULT 0.00
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `cuenta_entidad`
+--
+
+INSERT INTO `cuenta_entidad` (`id`, `saldo`) VALUES
+(1, 600.00);
 
 -- --------------------------------------------------------
 
@@ -194,14 +196,6 @@ INSERT INTO `usuario_rol` (`id`, `id_usuario`, `id_rol`) VALUES
 --
 
 --
--- Indices de la tabla `cliente_entidad`
---
-ALTER TABLE `cliente_entidad`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_cuenta_cliente` (`id_cuenta_cliente`),
-  ADD KEY `id_cuenta_entidad` (`id_cuenta_entidad`);
-
---
 -- Indices de la tabla `cuenta_cliente`
 --
 ALTER TABLE `cuenta_cliente`
@@ -264,22 +258,16 @@ ALTER TABLE `usuario_rol`
 --
 
 --
--- AUTO_INCREMENT de la tabla `cliente_entidad`
---
-ALTER TABLE `cliente_entidad`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `cuenta_cliente`
 --
 ALTER TABLE `cuenta_cliente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `cuenta_entidad`
 --
 ALTER TABLE `cuenta_entidad`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `historial`
@@ -320,13 +308,6 @@ ALTER TABLE `usuario_rol`
 --
 -- Restricciones para tablas volcadas
 --
-
---
--- Filtros para la tabla `cliente_entidad`
---
-ALTER TABLE `cliente_entidad`
-  ADD CONSTRAINT `cliente_entidad_ibfk_1` FOREIGN KEY (`id_cuenta_cliente`) REFERENCES `cuenta_cliente` (`id`),
-  ADD CONSTRAINT `cliente_entidad_ibfk_2` FOREIGN KEY (`id_cuenta_entidad`) REFERENCES `cuenta_entidad` (`id`);
 
 --
 -- Filtros para la tabla `cuenta_cliente`
