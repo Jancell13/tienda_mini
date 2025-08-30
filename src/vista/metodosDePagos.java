@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
-public class metodosDePagos extends JFrame {
+public class metodosDePagos extends JFrame  {
     //numero de tarjeta, fecha de vencimiento, cvv //tarjeta de debito //4,2
     //Boton(Continue)
     //nombre titular,numero de tarjeta, fecha de vencimiento, cvv //tarjeta de credito

@@ -5,6 +5,7 @@ import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -16,10 +17,10 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-public class VistaRegistrar extends JFrame {
+public class VistaRegistrar extends JFrame implements ActionListener{
     private JPanel datos,detalles;
     private Container contenedor;
-    private JLabel lid,lnombre,lprecio,lsalario;
+    private JLabel lid,lnombre,lprecio,lcantidad;
     public JButton buscar,eliminar,actualizar,registrar,enviar,limpiar;
     public JTextField tid,tnombre,tprecio,tcantidad;
     public JTable tabla;
@@ -42,24 +43,18 @@ public class VistaRegistrar extends JFrame {
         //etiqueta
         lid=new JLabel("Id");
         lnombre=new JLabel("Nombre");
-        lprecio=new JLabel("Apellido");
-        lsalario=new JLabel("Salario");
+        lprecio=new JLabel("Precio");
+        lcantidad=new JLabel("Cantidad");
         //campos de texto
         tid=new JTextField(10);
-        tid.setForeground(Color.BLUE);
-        tid.setFont(new Font("Time new roman", Font.BOLD, 15));
         
         tnombre=new JTextField(10);
-        tnombre.setForeground(Color.BLUE);
-        tnombre.setFont(new Font("Time new roman", Font.BOLD, 15));
         
         tprecio=new JTextField(10);
-        tprecio.setForeground(Color.BLUE);
-        tprecio.setFont(new Font("Time new roman", Font.BOLD, 15));
         
         tcantidad=new JTextField(10);
-        tcantidad.setForeground(Color.BLUE);
-        tcantidad.setFont(new Font("Time new roman", Font.BOLD, 15));
+        /*tcantidad.setForeground(Color.BLUE);
+        tcantidad.setFont(new Font("Time new roman", Font.BOLD, 15));*/
         
         //botones
         buscar=new JButton("Buscar");
@@ -81,7 +76,7 @@ public class VistaRegistrar extends JFrame {
         datos.add(tprecio);
         datos.add(actualizar);
         
-        datos.add(lsalario);
+        datos.add(lcantidad);
         datos.add(tcantidad);
         datos.add(registrar);
         
@@ -102,6 +97,7 @@ public class VistaRegistrar extends JFrame {
         grid2=new GridLayout(1,1,2,3);
         
         tabla=new JTable(modelo);
+        tabla.getTableHeader().setReorderingAllowed(false);
         miscroll=new JScrollPane(tabla);
         miscroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         miscroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
