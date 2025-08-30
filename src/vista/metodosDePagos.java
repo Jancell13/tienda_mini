@@ -27,7 +27,8 @@ public class metodosDePagos extends JFrame  {
     public Container container;
     private JLabel titleDebito,titleFechaDebito,titleCvvDebito;
     private JTextField numTarjeDebito,fechaTarjeDebito,numCvvDebito;
-    private JLabel titleNombreCredito,titleCredito,titleFechaCredito,titleCvvCredito,titleMontoCredi,montoCredito;
+    private JLabel titleNombreCredito,titleCredito,titleFechaCredito,titleCvvCredito,titleMontoCredi;
+    public JLabel montoCredito;
     private JTextField nombreCredito,numTarjeCredito,fechaTarjeCredito,numCvvCredito;
     private JLabel titleNomTrans,titleNumCuenTra,titleNomBanTra,titleNumContaTra,titleMontoTrans,codigoConsig;
     private JTextField correoPaypal;
