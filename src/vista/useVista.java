@@ -7,9 +7,9 @@ import vista.metodosDePagos;
 public class useVista extends metodosDePagos{
 
     public static void main(String[] args) {
-        Vista v = new Vista();
-        //metodosDePagos v = new metodosDePagos();
-        //v.listarMetodoCredito();
+        //Vista v = new Vista();
+        metodosDePagos v = new metodosDePagos();
+        v.listarMetodoApplePay();
         v.setSize(674,720);
         v.setVisible(true);
         v.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

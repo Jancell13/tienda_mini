@@ -1,9 +1,17 @@
 package vista;
 
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Insets;
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,11 +30,17 @@ public class metodosDePagos extends JFrame  {
     private JLabel titleNombreCredito,titleCredito,titleFechaCredito,titleCvvCredito,titleMontoCredi,montoCredito;
     private JTextField nombreCredito,numTarjeCredito,fechaTarjeCredito,numCvvCredito;
     private JLabel titleNomTrans,titleNumCuenTra,titleNomBanTra,titleNumContaTra,titleMontoTrans;
+    private JTextField codigoConsig,correoPaypal;
+    private JLabel titleConsig,titleCorreoPaypal;
+    private JTextField codigoEfectivo;
+    private JLabel titleEfectivo;
     private JTextField nomTrans,numCuentaTra,nomBanTra,numContaTra,montoTrans;
-    public JPanel tarjetaCredito,tarjetaDebito,transferencia;
-    private TitledBorder titulo,titulo2,titulo3;
+    public JPanel tarjetaCredito,tarjetaDebito,transferencia,consignacion,efectivo,paypal,bitcoin,applePay,googlePay;
+    private JPanel codigoQr,codigoQrApple;
+    private TitledBorder titulo,titulo2,titulo3,titulo4,titulo5,titulo6,titulo7,titulo8;
     private JButton confirCredi,confirDebito, confirTransfer;
     private FlowLayout miflow;
+    private Image imagen;
     public metodosDePagos(){
         super("Metodos de pago");
         //agrego el conteiner con flowLayaout
@@ -129,7 +143,78 @@ public class metodosDePagos extends JFrame  {
         transferencia.add(montoTrans);
         transferencia.add(confirTransfer);
         
-        //
+        //consignación
+        consignacion = new JPanel(new FlowLayout());
+        titulo4 = new TitledBorder("Consignacion");
+        consignacion.setBorder(titulo4);
+        
+        titleConsig = new JLabel("Codigo");
+        codigoConsig = new JTextField(10);
+        codigoConsig.setEditable(false);
+        
+        consignacion.add(titleConsig);
+        consignacion.add(codigoConsig);
+        
+        //Efectivo
+        efectivo = new JPanel(new FlowLayout());
+        titulo5 = new TitledBorder("Efectivo");
+        efectivo.setBorder(titulo5);
+        
+        titleEfectivo = new JLabel("Codigo Efecty");
+        codigoEfectivo = new JTextField(10);
+        codigoEfectivo.setEditable(false);
+        
+        efectivo.add(titleEfectivo);
+        efectivo.add(codigoEfectivo);
+        
+        //paypal       -       correo
+        paypal = new JPanel(new GridLayout(0,2,2,2));
+        titulo6 = new TitledBorder("Paypal");
+        paypal.setBorder(titulo6);
+        
+        titleCorreoPaypal = new JLabel("Correo de Paypal");
+        correoPaypal = new JTextField(15);
+        
+        paypal.add(titleCorreoPaypal);
+        paypal.add(correoPaypal);
+        
+        //bitcoin  -  codigo QR
+        JLabel pagarParaComprar = new JLabel("Escanear");
+        bitcoin = new JPanel(new FlowLayout());
+        titulo7 = new TitledBorder("Bitcoin");
+        codigoQr = new JPanel(new GridBagLayout());
+        ImageIcon icono = new ImageIcon("C:\\Users\\ASUS VIVOBOOK\\Downloads\\codigoQr.png");
+        JLabel etiquetaImagen = new JLabel(icono);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.insets = new Insets(5, 5, 5, 5);
+        pagarParaComprar.setFont(new Font("Times New Roman", Font.BOLD, 30));
+        codigoQr.add(pagarParaComprar,gbc);
+        codigoQr.add(etiquetaImagen);
+        codigoQr.revalidate();
+        codigoQr.repaint();
+        bitcoin.setBorder(titulo7);
+        bitcoin.add(codigoQr);
+        
+        //Apple Play    -
+        
+        applePay = new JPanel(new FlowLayout());
+        titulo8 = new TitledBorder("ApplePay");
+        codigoQrApple = new JPanel(new GridBagLayout());
+        ImageIcon iconoFace = new ImageIcon("C:\\Users\\ASUS VIVOBOOK\\Downloads\\faceID.png");
+        JLabel etiquetaFace = new JLabel(iconoFace);
+        GridBagConstraints rgb = new GridBagConstraints();
+        rgb.gridx = 0;
+        rgb.gridy = 1;
+        rgb.insets = new Insets(5, 5, 5, 5);
+        codigoQrApple.add(etiquetaFace);
+        codigoQrApple.revalidate();
+        codigoQrApple.repaint();
+        applePay.setBorder(titulo8);
+        applePay.add(codigoQrApple);
+        
+        //Google Play
         
     }
     public void listarMetodoCredito(){
@@ -141,5 +226,19 @@ public class metodosDePagos extends JFrame  {
     public void listarMetodoTransferencia(){
         container.add(transferencia);
     }
-    
+    public void listarMetodoConsignacion(){
+        container.add(consignacion);
+    }
+    public void listarMetodoEfectivo(){
+        container.add(efectivo);
+    }
+    public void listarMetodoPaypal(){
+        container.add(paypal);
+    }
+    public void listarMetodoBitcoin(){
+        container.add(bitcoin);
+    }
+    public void listarMetodoApplePay(){
+        container.add(applePay);
+    }
 }
