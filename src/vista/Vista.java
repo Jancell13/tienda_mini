@@ -6,24 +6,26 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 public class Vista extends JFrame{
-    private JPanel producMetodo,productoCompra,medioPago,medioPagoBtn,productos;
+    private JPanel producMetodo,productoCompra,medioPago,medioPagoBtn,productos,totalPagar;
     private Container contenedor;
     public JComboBox modoDePago;
     public JButton pagar, registrar, invi;
+    public JLabel totalPagarText;
+    public JTextField totalPagarCampo;
     private JScrollPane miScroll, miScrollproductoCompra;
     private FlowLayout miflow;
     public JTable tabla,tablaProducto;
@@ -46,7 +48,7 @@ public class Vista extends JFrame{
         campos.addColumn("Producto");
         campos.addColumn("PrecioUnd");
         campos.addColumn("Cantidad");
-        campos.addColumn("PrecioTotal");
+        campos.addColumn("SubTotal");
         tabla = new JTable(campos);
         tabla.getTableHeader().setReorderingAllowed(false);
         tabla.getTableHeader().setResizingAllowed(false);
@@ -70,7 +72,17 @@ public class Vista extends JFrame{
         medioPagoBtn.add(pagar);
         medioPagoBtn.add(invi);
         medioPagoBtn.add(registrar);
+        
+        totalPagar = new JPanel(new GridLayout(0,2,2,2));
+        TitledBorder totalTitle = new TitledBorder("Total a Pagar");
+        totalPagarCampo = new JTextField(10);
+        totalPagarCampo.setEditable(false);
+        totalPagarText = new JLabel("Total a Pagar");
+        totalPagar.add(totalPagarText);
+        totalPagar.add(totalPagarCampo);
+        
         medioPago.add(medioPagoBtn, BorderLayout.NORTH);
+        medioPago.add(totalPagar, BorderLayout.SOUTH);
         titulo3=new TitledBorder("Medios de pago");
         titulo3.setTitleColor(Color.BLUE);
         medioPago.setBorder(titulo3);

@@ -46,7 +46,7 @@ public class VistaRegistrar extends JFrame{
         lprecio=new JLabel("Precio");
         lcantidad=new JLabel("Cantidad");
         //campos de texto
-        tid=new JTextField(10);
+        tid=new JTextField(15);
         
         tnombre=new JTextField(10);
         

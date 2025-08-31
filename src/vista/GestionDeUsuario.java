@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
 public class GestionDeUsuario extends JFrame {
     private JPanel datos,detalles;
     private Container contenedor;
-    private JLabel lid,lnombre,lapellido,ldocumento,lCorreo,lcontraseña;
+    private JLabel lid,lnombre,lapellido,ldocumento,lcorreo,lcontraseña,lmetodoPago;
     public JButton buscar,eliminar,actualizar,registrar,enviar,limpiar;
     public JTextField tid,tnombre,tapellido,tcorreo,tcontraseña,tdocumento;
     public JTable tabla;
@@ -42,17 +42,18 @@ public class GestionDeUsuario extends JFrame {
         titulo.setTitleColor(Color.BLUE);
         datos=new JPanel();
         datos.setBorder(titulo);
-        grid=new GridLayout(6,3,2,3);
+        grid=new GridLayout(0,3,2,3);
         datos.setLayout(grid);
         //etiqueta
         lid=new JLabel("Id");
         ldocumento=new JLabel("Documento");
         lnombre=new JLabel("Nombre");
         lapellido=new JLabel("Apellido");
-        lCorreo=new JLabel("Correo");
+        lcorreo=new JLabel("Correo");
         lcontraseña=new JLabel("Contraseña");
+        lmetodoPago=new JLabel("Rol");
         //campos de texto
-        tid=new JTextField(10);
+        tid=new JTextField(20);
         tid.setForeground(Color.BLUE);
         
         tdocumento=new JTextField(10);
@@ -70,13 +71,13 @@ public class GestionDeUsuario extends JFrame {
         tcontraseña=new JTextField(10);
         tcontraseña.setForeground(Color.BLUE);
         
+        
 
         //botones
         buscar=new JButton("Buscar");
         eliminar=new JButton("Eliminar");
         actualizar=new JButton("Actualizar");
         registrar=new JButton("Registrar");
-        //enviar=new JButton("Enviar");
         limpiar=new JButton("Limpiar");
         
         listaR=new JComboBox();
@@ -95,16 +96,18 @@ public class GestionDeUsuario extends JFrame {
         datos.add(actualizar);
         
         datos.add(ldocumento);
-        datos.add(tcorreo);
+        datos.add(tdocumento);
         datos.add(registrar);
         
-        datos.add(lCorreo);
-        datos.add(tcontraseña);
-        //datos.add(enviar);
+        datos.add(lcorreo);
+        datos.add(tcorreo);
+        datos.add(limpiar);
         
         datos.add(lcontraseña);
+        datos.add(tcontraseña);
+        datos.add(new JLabel());
+        datos.add(lmetodoPago);
         datos.add(listaR);
-        datos.add(limpiar);
         
         //
         modelo=new DefaultTableModel();
@@ -114,7 +117,6 @@ public class GestionDeUsuario extends JFrame {
         modelo.addColumn("APELLIDO");
         modelo.addColumn("CORREO");
         modelo.addColumn("CONTRASEÑA");
-        
         detalles=new JPanel();
         grid2=new GridLayout(1,1,2,3);
         
@@ -125,6 +127,7 @@ public class GestionDeUsuario extends JFrame {
         miscroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         miscroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         detalles.add(miscroll);
+        detalles.setPreferredSize(new Dimension(640, 440));
         titulo2=new TitledBorder("Datos del trabajador");
         titulo2.setTitleColor(Color.BLUE);
         detalles.setBorder(titulo2);
