@@ -1,7 +1,6 @@
 package vista;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -9,6 +8,8 @@ import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -17,17 +18,21 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 public class Login extends JFrame {
-
+    
+    Validaciones validar = new Validaciones();
     public Container container;
     private JPanel logoPrime, formuSegun;
     private JPanel containerLogo, containerFormu;
     private FlowLayout miflow;
-    public JTextField inputCorreo, inputContraseña;
+    public JTextField inputCorreo;
+    public JPasswordField inputContraseña;
     private JLabel bienvenidos, login, logo;//titulos
     private TitledBorder campoCorreo, campoContra;
     public JButton ingresar;
@@ -67,7 +72,7 @@ public class Login extends JFrame {
         inputCorreo.setBorder(campoCorreo);
 
         campoContra = new TitledBorder("Contraseña");
-        inputContraseña = new JTextField(15);
+        inputContraseña = new JPasswordField(15);
         inputContraseña.setOpaque(false);
         inputContraseña.setBorder(campoContra);
 
@@ -80,7 +85,14 @@ public class Login extends JFrame {
         containerFormu.add(inputCorreo);
         containerFormu.add(inputContraseña);
         containerFormu.add(ingresar);
-
+        
+        ingresar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                validarFormularioLOGIN();
+            }
+        });
+        
         // Agrego containerFormu dentro de auxFormu
         auxFormu.add(containerFormu);
 
@@ -90,5 +102,19 @@ public class Login extends JFrame {
         container.add(logoPrime);
         container.add(formuSegun);
     }
-    
+    private boolean validarFormularioLOGIN(){
+        //inputCorreo, inputContraseña;
+        String correo = inputCorreo.getText();
+        String contraseña = inputContraseña.getText();
+        
+        if(!Validaciones.validarCorreo(correo)){
+            JOptionPane.showMessageDialog(this,"Correo no valido");
+            return false;
+        }
+        if(!Validaciones.validarContraseña(contraseña)){
+            JOptionPane.showMessageDialog(this,"Contraseña no valida");
+            return false;
+        }
+        return true;
+    }
 }

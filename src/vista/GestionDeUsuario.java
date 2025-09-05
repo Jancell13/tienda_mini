@@ -1,13 +1,12 @@
 package vista;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.HeadlessException;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -137,5 +136,10 @@ public class GestionDeUsuario extends JFrame {
         contenedor.add(detalles);
         
         contenedor.setBackground(Color.lightGray);
-    } 
+        
+    }
+    public void validarGestionUsuario(String boton){
+        //lid,lnombre,lapellido,ldocumento,lcorreo,lcontraseña,lmetodoPago;
+        //buscar,eliminar,actualizar,registrar,enviar,limpiar;
+    }
 }
