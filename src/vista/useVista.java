@@ -14,7 +14,7 @@ public class useVista extends metodosDePagos{
         //GestionDeUsuario v = new GestionDeUsuario();
         //Registro v = new Registro();
         //VistaRegistrar v = new VistaRegistrar();
-        v.listarMetodoApplePay();
+        v.listarMetodoDebito();
         v.setSize(674,720);
         v.setVisible(true);
         v.setLocationRelativeTo(null);

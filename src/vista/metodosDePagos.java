@@ -38,8 +38,12 @@ public class metodosDePagos extends JFrame  {
     public JPanel tarjetaCredito,tarjetaDebito,transferencia,consignacion,efectivo,paypal,bitcoin,applePay,googlePay;
     private JPanel codigoQr,codigoQrApple;
     private TitledBorder titulo,titulo2,titulo3,titulo4,titulo5,titulo6,titulo7,titulo8;
-    private JButton confirCredi,confirDebito, confirTransfer;
+    private JButton confirCredi,confirDebito, confirTransfer, confirPaypal;
     private FlowLayout miflow;
+    
+    private JLabel tittleTotalPagar, tittleMontoRecibir, tittleMontoRegreso;
+    public JTextField totalPagarEfecty, montoRecibirEfecty, montoRegresoEfecty;
+    public JButton pagarEfecty;
     
     public metodosDePagos(){
         super("Metodos de pago");
@@ -114,6 +118,12 @@ public class metodosDePagos extends JFrame  {
         montoCredito.setHorizontalAlignment(SwingConstants.RIGHT);//
         
         confirDebito = new JButton("Continue");
+        confirDebito.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                validarCamposDebito();
+            }
+        });
         
         tarjetaDebito.add(titleDebito);
         tarjetaDebito.add(numTarjeDebito);
@@ -149,6 +159,12 @@ public class metodosDePagos extends JFrame  {
         montoTrans = new JTextField(10);
         
         confirTransfer = new JButton("Continuar");
+        confirTransfer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                validarCamposTransferencia();
+            }
+        });
         
         transferencia.add(titleNomTrans);
         transferencia.add(nomTrans);
@@ -186,23 +202,41 @@ public class metodosDePagos extends JFrame  {
     }
     public void listarMetodoEfectivo(){
         //Efectivo
+        /*
+        */
         efectivo = new JPanel(new GridLayout(0,2,2,2));
         titulo5 = new TitledBorder("Efectivo");
         efectivo.setBorder(titulo5);
         
-        titleEfectivo = new JLabel("Codigo Efecty");
-        codigoEfectivo = new JLabel();
-        codigoEfectivo.setEnabled(false);
-        codigoEfectivo.setHorizontalAlignment(SwingConstants.RIGHT);
+        tittleTotalPagar = new JLabel("Total a Pagar");
+        totalPagarEfecty = new JTextField(10);
+        totalPagarEfecty.setEditable(false);
+        totalPagarEfecty.setHorizontalAlignment(SwingConstants.RIGHT);
         
-        titleMontoCredi = new JLabel("Monto a pagar");
-        montoCredito = new JLabel();
-        montoCredito.setHorizontalAlignment(SwingConstants.RIGHT);
+        tittleMontoRecibir = new JLabel("Monto a Recibir");
+        montoRecibirEfecty = new JTextField(10);
+        montoRecibirEfecty.setHorizontalAlignment(SwingConstants.RIGHT);
         
-        efectivo.add(titleEfectivo);
-        efectivo.add(codigoEfectivo);
-        efectivo.add(titleMontoCredi);
-        efectivo.add(montoCredito);
+        tittleMontoRegreso = new JLabel("Monto a Regresar");
+        montoRegresoEfecty = new JTextField(10);
+        montoRegresoEfecty.setEditable(false);
+        montoRegresoEfecty.setHorizontalAlignment(SwingConstants.RIGHT);
+        pagarEfecty = new JButton("Pagar");
+        pagarEfecty.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                validarCamposEfectivos();
+            }
+        });
+        
+        efectivo.add(tittleTotalPagar);
+        efectivo.add(totalPagarEfecty);
+        efectivo.add(tittleMontoRecibir);
+        efectivo.add(montoRecibirEfecty);
+        efectivo.add(tittleMontoRegreso);
+        efectivo.add(montoRegresoEfecty);
+        efectivo.add(pagarEfecty);
+        
         container.add(efectivo);
     }
     public void listarMetodoPaypal(){
@@ -218,6 +252,13 @@ public class metodosDePagos extends JFrame  {
         montoCredito = new JLabel();
         montoCredito.setHorizontalAlignment(SwingConstants.RIGHT);
         
+        confirPaypal = new JButton("Pagar");
+        confirPaypal.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                validarCamposPaypal();
+            }
+        });
         paypal.add(titleCorreoPaypal);
         paypal.add(correoPaypal);
         paypal.add(titleMontoCredi);
@@ -346,6 +387,16 @@ public class metodosDePagos extends JFrame  {
         
         if(!Validaciones.validarCorreo(correoPay)){
             JOptionPane.showMessageDialog(this,"Correo de Paypal invalido");
+            return false;
+        }
+        return true;
+    }
+    public boolean validarCamposEfectivos() {
+        //montoRecibirEfecty = new JTextField(10);
+        String montoRecibir = montoRecibirEfecty.getText();
+        
+        if(!Validaciones.validarNumeros(montoRecibir)){
+            JOptionPane.showMessageDialog(this,"monto a recibir invalido");
             return false;
         }
         return true;
