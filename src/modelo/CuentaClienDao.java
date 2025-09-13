@@ -25,8 +25,8 @@ public class CuentaClienDao implements Cuentacli<Cuentacliente> {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Cuentacliente c = new Cuentacliente();
-                    c.setId_usuario(rs.getInt(2)); // id_usuario está en la segunda columna
-                    c.setSaldo(rs.getDouble(3));   // saldo está en la tercera columna
+                    c.setId_usuario(rs.getInt(2)); 
+                    c.setSaldo(rs.getDouble(3));   
                     datos.add(c);
                 }
             }
@@ -57,3 +57,4 @@ public class CuentaClienDao implements Cuentacli<Cuentacliente> {
     
 
 }
+
