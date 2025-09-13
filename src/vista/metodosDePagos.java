@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -348,5 +349,13 @@ public class metodosDePagos extends JFrame  {
             return false;
         }
         return true;
+    }
+    public void mostrarComoModal(JFrame parent) {
+        JDialog dialog = new JDialog(parent, "Métodos de Pago", true); // true = modal
+        dialog.setContentPane(this.getContentPane());
+        dialog.setSize(this.getSize());
+        dialog.setLocationRelativeTo(parent);
+        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        dialog.setVisible(true);
     }
 }
