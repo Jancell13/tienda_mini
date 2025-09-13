@@ -9,12 +9,12 @@ public class useVista extends metodosDePagos{
 
     public static void main(String[] args) throws IOException {
         //Vista v = new Vista();
-        //metodosDePagos v = new metodosDePagos();
+        metodosDePagos v = new metodosDePagos();
         //Login v = new Login();
-        GestionDeUsuario v = new GestionDeUsuario();
+        //GestionDeUsuario v = new GestionDeUsuario();
         //Registro v = new Registro();
         //VistaRegistrar v = new VistaRegistrar();
-        //v.listarMetodoApplePay();
+        v.listarMetodoApplePay();
         v.setSize(674,720);
         v.setVisible(true);
         v.setLocationRelativeTo(null);

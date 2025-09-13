@@ -1,20 +1,19 @@
 package vista;
 
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.Insets;
-import javax.swing.GroupLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -29,7 +28,7 @@ public class metodosDePagos extends JFrame  {
     private JTextField numTarjeDebito,fechaTarjeDebito,numCvvDebito;
     private JLabel titleNombreCredito,titleCredito,titleFechaCredito,titleCvvCredito,titleMontoCredi;
     public JLabel montoCredito;
-    private JTextField nombreCredito,numTarjeCredito,fechaTarjeCredito,numCvvCredito;
+    public JTextField nombreCredito,numTarjeCredito,fechaTarjeCredito,numCvvCredito;
     private JLabel titleNomTrans,titleNumCuenTra,titleNomBanTra,titleNumContaTra,titleMontoTrans,codigoConsig;
     private JTextField correoPaypal;
     private JLabel titleConsig,titleCorreoPaypal,codigoEfectivo;
@@ -40,14 +39,61 @@ public class metodosDePagos extends JFrame  {
     private TitledBorder titulo,titulo2,titulo3,titulo4,titulo5,titulo6,titulo7,titulo8;
     private JButton confirCredi,confirDebito, confirTransfer;
     private FlowLayout miflow;
-    private Image imagen;
+    
     public metodosDePagos(){
         super("Metodos de pago");
         //agrego el conteiner con flowLayaout
         container = getContentPane();
         miflow = new FlowLayout();
         container.setLayout(miflow);
+        //Google Play
+    }
+    public void listarMetodoCredito(){
+        //Agrego la tarjeta de credito
+        tarjetaCredito = new JPanel(new GridLayout(6,2,2,2));
+        titulo2 = new TitledBorder("Tarjeta de Credito");
+        tarjetaCredito.setBorder(titulo2);
         
+        titleNombreCredito = new JLabel("Nombre del Titular");
+        nombreCredito = new JTextField(10);
+        
+        titleCredito = new JLabel("Numero de Tarjeta");//titulo
+        numTarjeCredito = new JTextField(10);//agregar o escribir 
+        
+        titleFechaCredito = new JLabel("Fecha Vencimiento");
+        fechaTarjeCredito = new JTextField(10);
+        
+        titleCvvCredito = new JLabel("CVV");
+        numCvvCredito = new JTextField(10);
+        
+        titleMontoCredi = new JLabel("Monto a pagar");
+        montoCredito = new JLabel();
+        montoCredito.setHorizontalAlignment(SwingConstants.RIGHT);//POSICIONAR EL TEXTO A LA DERECHA
+        
+        confirCredi = new JButton("Continuar");
+        confirCredi.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                validarCamposCredito();
+            }
+        });
+        
+        
+        tarjetaCredito.add(titleNombreCredito);
+        tarjetaCredito.add(nombreCredito);
+        tarjetaCredito.add(titleCredito);
+        tarjetaCredito.add(numTarjeCredito);
+        tarjetaCredito.add(titleFechaCredito);
+        tarjetaCredito.add(fechaTarjeCredito);
+        tarjetaCredito.add(titleCvvCredito);
+        tarjetaCredito.add(numCvvCredito);
+        tarjetaCredito.add(titleMontoCredi);
+        tarjetaCredito.add(montoCredito);
+        tarjetaCredito.add(confirCredi);
+        
+        container.add(tarjetaCredito);
+    }
+    public void listarMetodoDebito(){
         //Agrego la tarjeta de debito
         tarjetaDebito = new JPanel(new GridLayout(0,2,2,2));
         titulo = new TitledBorder("Tarjeta de Debito");
@@ -77,43 +123,9 @@ public class metodosDePagos extends JFrame  {
         tarjetaDebito.add(titleMontoCredi);
         tarjetaDebito.add(montoCredito);
         tarjetaDebito.add(confirDebito);
-        
-        //Agrego la tarjeta de credito
-        tarjetaCredito = new JPanel(new GridLayout(6,2,2,2));
-        titulo2 = new TitledBorder("Tarjeta de Credito");
-        tarjetaCredito.setBorder(titulo2);
-        
-        titleNombreCredito = new JLabel("Nombre del Titular");
-        nombreCredito = new JTextField(10);
-        
-        titleCredito = new JLabel("Numero de Tarjeta");//titulo
-        numTarjeCredito = new JTextField(10);//agregar o escribir 
-        
-        titleFechaCredito = new JLabel("Fecha Vencimiento");
-        fechaTarjeCredito = new JTextField(10);
-        
-        titleCvvCredito = new JLabel("CVV");
-        numCvvCredito = new JTextField(10);
-        
-        titleMontoCredi = new JLabel("Monto a pagar");
-        montoCredito = new JLabel();
-        montoCredito.setHorizontalAlignment(SwingConstants.RIGHT);//POSICIONAR EL TEXTO A LA DERECHA
-        
-        confirCredi = new JButton("Continuar");
-        
-        
-        tarjetaCredito.add(titleNombreCredito);
-        tarjetaCredito.add(nombreCredito);
-        tarjetaCredito.add(titleCredito);
-        tarjetaCredito.add(numTarjeCredito);
-        tarjetaCredito.add(titleFechaCredito);
-        tarjetaCredito.add(fechaTarjeCredito);
-        tarjetaCredito.add(titleCvvCredito);
-        tarjetaCredito.add(numCvvCredito);
-        tarjetaCredito.add(titleMontoCredi);
-        tarjetaCredito.add(montoCredito);
-        tarjetaCredito.add(confirCredi);
-        
+        container.add(tarjetaDebito);
+    }
+    public void listarMetodoTransferencia(){
         //agregar metodo Transferencia
         //nombre destinatario,numero de cuenta,nombre del banco,numero de contacto
         transferencia = new JPanel(new GridLayout(0,2,2,2));
@@ -148,7 +160,9 @@ public class metodosDePagos extends JFrame  {
         transferencia.add(titleMontoTrans);
         transferencia.add(montoTrans);
         transferencia.add(confirTransfer);
-        
+        container.add(transferencia);
+    }
+    public void listarMetodoConsignacion(){
         //consignación
         consignacion = new JPanel(new GridLayout(0,2,2,2));
         titulo4 = new TitledBorder("Consignacion");
@@ -167,7 +181,9 @@ public class metodosDePagos extends JFrame  {
         consignacion.add(codigoConsig);
         consignacion.add(titleMontoCredi);
         consignacion.add(montoCredito);
-        
+        container.add(consignacion);
+    }
+    public void listarMetodoEfectivo(){
         //Efectivo
         efectivo = new JPanel(new GridLayout(0,2,2,2));
         titulo5 = new TitledBorder("Efectivo");
@@ -186,7 +202,9 @@ public class metodosDePagos extends JFrame  {
         efectivo.add(codigoEfectivo);
         efectivo.add(titleMontoCredi);
         efectivo.add(montoCredito);
-        
+        container.add(efectivo);
+    }
+    public void listarMetodoPaypal(){
         //paypal       -       correo
         paypal = new JPanel(new GridLayout(0,2,2,2));
         titulo6 = new TitledBorder("Paypal");
@@ -203,7 +221,9 @@ public class metodosDePagos extends JFrame  {
         paypal.add(correoPaypal);
         paypal.add(titleMontoCredi);
         paypal.add(montoCredito);
-        
+        container.add(paypal);
+    }
+    public void listarMetodoBitcoin(){
         //bitcoin  -  codigo QR
         JLabel pagarParaComprar = new JLabel("Escanear");
         bitcoin = new JPanel(new FlowLayout());
@@ -222,8 +242,10 @@ public class metodosDePagos extends JFrame  {
         codigoQr.repaint();
         bitcoin.setBorder(titulo7);
         bitcoin.add(codigoQr);
-        
-        //Apple Play    -
+        container.add(bitcoin);
+    }
+    public void listarMetodoApplePay(){
+        //Apple Play    - FACE ID
         
         applePay = new JPanel(new FlowLayout());
         titulo8 = new TitledBorder("ApplePay");
@@ -239,32 +261,92 @@ public class metodosDePagos extends JFrame  {
         codigoQrApple.repaint();
         applePay.setBorder(titulo8);
         applePay.add(codigoQrApple);
-        
-        //Google Play
-        
-    }
-    public void listarMetodoCredito(){
-        container.add(tarjetaCredito);
-    }
-    public void listarMetodoDebito(){
-        container.add(tarjetaDebito);
-    }
-    public void listarMetodoTransferencia(){
-        container.add(transferencia);
-    }
-    public void listarMetodoConsignacion(){
-        container.add(consignacion);
-    }
-    public void listarMetodoEfectivo(){
-        container.add(efectivo);
-    }
-    public void listarMetodoPaypal(){
-        container.add(paypal);
-    }
-    public void listarMetodoBitcoin(){
-        container.add(bitcoin);
-    }
-    public void listarMetodoApplePay(){
         container.add(applePay);
+    }
+    public boolean validarCamposCredito() {
+        /*
+        */
+        String nombre = nombreCredito.getText();
+        String numeroCuenta = numTarjeCredito.getText();
+        String fechaTarje = fechaTarjeCredito.getText();
+        String cvv = numCvvCredito.getText();
+        //fechaTarjeCredito
+        
+        if(!Validaciones.validarLetras(nombre)){
+            JOptionPane.showMessageDialog(this,"Nombre titular invalido");
+            return false;
+        }
+        if(!Validaciones.validarNumeroCuenta(numeroCuenta)){
+            JOptionPane.showMessageDialog(this,"Numero de cuenta invalido");
+            return false;
+        }
+        if(!Validaciones.validarFecha(fechaTarje)){
+            JOptionPane.showMessageDialog(this,"Fecha invalida");
+            return false;
+        }
+        if(!Validaciones.validarCVV(cvv)){
+            JOptionPane.showMessageDialog(this,"Numero de CVV invalido");
+            return false;
+        }
+        return true;
+    }
+    public boolean validarCamposDebito() {
+        String numeroCuenta = numTarjeDebito.getText();
+        String fecha = fechaTarjeDebito.getText();
+        String cvv = numCvvDebito.getText();
+        
+        if(!Validaciones.validarNumeroCuenta(numeroCuenta)){
+            JOptionPane.showMessageDialog(this,"Numero de cuenta invalido");
+            return false;
+        }
+        if(!Validaciones.validarFecha(fecha)){
+            JOptionPane.showMessageDialog(this,"Fecha invalida");
+            return false;
+        }
+        if(!Validaciones.validarCVV(cvv)){
+            JOptionPane.showMessageDialog(this,"Numero de CVV invalido");
+            return false;
+        }
+        return true;
+    }
+    public boolean validarCamposTransferencia() {
+        /*
+        */
+        String nombreDestinatario = nomTrans.getText();
+        String numeroCuenta = numCuentaTra.getText();
+        String nombreBanco = nomBanTra.getText();
+        String contacto = numContaTra.getText();
+        String monto = montoTrans.getText();
+        
+        if(!Validaciones.validarLetras(nombreDestinatario)){
+            JOptionPane.showMessageDialog(this,"Nombre del destinatario invalido");
+            return false;
+        }
+        if(!Validaciones.validarNumeroCuenta(numeroCuenta)){
+            JOptionPane.showMessageDialog(this,"Numero de cuenta invalida");
+            return false;
+        }
+        if(!Validaciones.validarLetras(nombreBanco)){
+            JOptionPane.showMessageDialog(this,"Nombre del banco invalido");
+            return false;
+        }
+        if(!Validaciones.validarTelefonos(contacto)){
+            JOptionPane.showMessageDialog(this,"Numero de contacto invalido");
+            return false;
+        }
+        if(!Validaciones.validarNumeros(monto)){
+            JOptionPane.showMessageDialog(this,"Monto a transferir invalido");
+            return false;
+        }
+        return true;
+    }
+    public boolean validarCamposPaypal() {
+        String correoPay = correoPaypal.getText();
+        
+        if(!Validaciones.validarCorreo(correoPay)){
+            JOptionPane.showMessageDialog(this,"Correo de Paypal invalido");
+            return false;
+        }
+        return true;
     }
 }

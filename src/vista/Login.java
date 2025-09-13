@@ -102,7 +102,7 @@ public class Login extends JFrame {
         container.add(logoPrime);
         container.add(formuSegun);
     }
-    private boolean validarFormularioLOGIN(){
+    public boolean validarFormularioLOGIN(){
         //inputCorreo, inputContraseña;
         String correo = inputCorreo.getText();
         String contraseña = inputContraseña.getText();

@@ -14,11 +14,27 @@ public class Validaciones {
     }
     
     public static boolean validarCedula(String cedula) {
-        return Pattern.matches("^\\d{6,10}$", cedula);
+        return Pattern.matches("^\\d{9,11}$", cedula);
     }
     
     public static boolean validarNumeros(String texto) {
         return Pattern.matches("^\\d+$", texto);
+    }
+    
+    public static boolean validarTelefonos(String texto) {
+        return Pattern.matches("^\\d{10}", texto);
+    }
+    
+    public static boolean validarCVV(String texto) {
+        return Pattern.matches("^\\d{3,4}", texto);
+    }
+    
+    public static boolean validarFecha(String texto) {
+        return Pattern.matches("^(0[1-9]|1[0-2])/(\\d{2})$", texto);
+    }
+    
+    public static boolean validarNumeroCuenta(String texto) {
+        return Pattern.matches("^[45]\\d{12,15}$", texto);
     }
     
     public static boolean validarContraseña(String contrasena) {
