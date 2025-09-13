@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-08-2025 a las 23:34:56
+-- Tiempo de generación: 13-09-2025 a las 17:10:40
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -91,15 +91,15 @@ CREATE TABLE `metodo_pago` (
 --
 
 INSERT INTO `metodo_pago` (`id`, `nombre`) VALUES
-(8, 'apple pay'),
-(6, 'bitcoin'),
-(7, 'consignacion'),
-(3, 'efectivo'),
-(9, 'google pay'),
-(4, 'paypal'),
+(8, 'Apple Pay'),
+(6, 'Bitcoin'),
+(7, 'Consignación'),
+(3, 'Efectivo'),
+(9, 'Google Pay'),
+(4, 'Paypal'),
 (2, 'Tarjeta de Credito'),
 (1, 'Tarjeta de Debito'),
-(5, 'transferencia');
+(5, 'Transferencia');
 
 -- --------------------------------------------------------
 
