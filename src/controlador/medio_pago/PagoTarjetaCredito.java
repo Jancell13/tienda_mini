@@ -2,16 +2,17 @@ package controlador.medio_pago;
 
 import vista.metodosDePagos;
 
-public class PagoTranferencia implements Pagos {
+public class PagoTarjetaCredito implements Pagos {
     @Override
     public void crearPago(double valorTotal) {
-        System.out.println("se ha procesado el pago con Transferencias");
-
+        System.out.println("se ha procesado el pago con Tarjeta de credito.");
         metodosDePagos viewP = new metodosDePagos();
-        viewP.listarMetodoTransferencia();
+        viewP.listarMetodoCredito();
         viewP.montoCredito.setText(String.valueOf(valorTotal));
-        viewP.setSize(320, 240);
+        viewP.setSize(270, 240);
         viewP.setVisible(true);
         viewP.setLocationRelativeTo(null);
+
+        viewP.montoCredito.setText(String.valueOf(valorTotal));
     }
 }

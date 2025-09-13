@@ -68,8 +68,8 @@ public class ControladorRegistrarProduc implements ActionListener, MouseListener
         }
 
         if (ae.getSource() == viewR.registrar) {
-            if (!viewR.tid.getText().isEmpty() && !viewR.tnombre.getText().isEmpty()
-                    && !viewR.tprecio.getText().isEmpty() && !viewR.tcantidad.getText().isEmpty()) {
+            if (!viewR.tnombre.getText().isEmpty() && !viewR.tprecio.getText().isEmpty()
+                    && !viewR.tcantidad.getText().isEmpty()) {
                 setAdd();
             } else {
                 JOptionPane.showMessageDialog(viewR, "faltan campos por diligenciar");
@@ -82,12 +82,9 @@ public class ControladorRegistrarProduc implements ActionListener, MouseListener
 
         if (ae.getSource() == viewR.eliminar) {
             int fila = viewR.tabla.getSelectedRow();
-            JOptionPane.showMessageDialog(viewR, "que valor contiene la fila " + fila);
-
             if (!viewR.tid.getText().isEmpty()) {
                 int id = Integer.parseInt(viewR.tid.getText());
                 setDelete(id);
-
             } else if (fila != -1) {
                 int id = Integer.parseInt(viewR.tabla.getValueAt(fila, 0).toString());
                 setDelete(id);
@@ -109,20 +106,11 @@ public class ControladorRegistrarProduc implements ActionListener, MouseListener
             setUpdate(id);
             flag = false;
             viewR.tid.setEnabled(true);
+            viewR.actualizar.setEnabled(false);
             limpiarTabla();
             limpiarCampos();
             getListar(viewR.tabla);
         }
-        /* if (ae.getSource() == viewR.registrar && flag == true) {
-
-            int id = Integer.parseInt(viewR.tid.getText());
-            setUpdate(id);
-            flag = false;
-            viewR.tid.setEditable(true);
-            limpiarTabla();
-            limpiarCampos();
-            getListar(viewR.tabla);
-        } */
     }
 
     public void getListar(JTable tabla) {
@@ -141,12 +129,10 @@ public class ControladorRegistrarProduc implements ActionListener, MouseListener
 
     public void setAdd() {
         int resultado;
-        int id = Integer.parseInt(viewR.tid.getText().toString());
         String nombre = viewR.tnombre.getText();
         double precio = Double.parseDouble(viewR.tprecio.getText().toString());
         int cantidad = Integer.parseInt(viewR.tcantidad.getText().toString());
 
-        p.setId(id);
         p.setNombre(nombre);
         p.setPrecio(precio);
         p.setCantidad(cantidad);
