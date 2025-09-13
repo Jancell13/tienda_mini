@@ -26,19 +26,19 @@ public class metodosDePagos extends JFrame  {
     //nombre titular,numero de tarjeta, fecha de vencimiento, cvv //tarjeta de credito
     public Container container;
     private JLabel titleDebito,titleFechaDebito,titleCvvDebito;
-    private JTextField numTarjeDebito,fechaTarjeDebito,numCvvDebito;
+    public JTextField numTarjeDebito,fechaTarjeDebito,numCvvDebito;
     private JLabel titleNombreCredito,titleCredito,titleFechaCredito,titleCvvCredito,titleMontoCredi;
     public JLabel montoCredito;
     public JTextField nombreCredito,numTarjeCredito,fechaTarjeCredito,numCvvCredito;
     private JLabel titleNomTrans,titleNumCuenTra,titleNomBanTra,titleNumContaTra,titleMontoTrans,codigoConsig;
-    private JTextField correoPaypal;
+    public JTextField correoPaypal;
     private JLabel titleConsig,titleCorreoPaypal,codigoEfectivo;
     private JLabel titleEfectivo;
-    private JTextField nomTrans,numCuentaTra,nomBanTra,numContaTra,montoTrans;
+    public JTextField nomTrans,numCuentaTra,nomBanTra,numContaTra,montoTrans;
     public JPanel tarjetaCredito,tarjetaDebito,transferencia,consignacion,efectivo,paypal,bitcoin,applePay,googlePay;
     private JPanel codigoQr,codigoQrApple;
     private TitledBorder titulo,titulo2,titulo3,titulo4,titulo5,titulo6,titulo7,titulo8;
-    private JButton confirCredi,confirDebito, confirTransfer, confirPaypal;
+    public JButton confirCredi,confirDebito, confirTransfer, confirPaypal;
     private FlowLayout miflow;
     
     private JLabel tittleTotalPagar, tittleMontoRecibir, tittleMontoRegreso;
