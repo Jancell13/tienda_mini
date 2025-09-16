@@ -11,10 +11,14 @@ public class PagoPayPal implements Pagos {
 
         metodosDePagos viewP = new metodosDePagos();
         viewP.listarMetodoPaypal();
-        viewP.montoCredito.setText(String.valueOf(valorTotal));
         viewP.setSize(380, 150);
-        viewP.setVisible(true);
-        viewP.setLocationRelativeTo(null);
+        viewP.montoCredito.setText(String.valueOf(valorTotal));
+        viewP.mostrarComoModal(viewP);
+    }
+
+    @Override
+    public boolean confirPago() {
+        return false;
     }
 
 }

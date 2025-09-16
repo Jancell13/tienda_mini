@@ -11,7 +11,12 @@ public class PagoConsignacion implements Pagos {
         viewP.listarMetodoConsignacion();
         viewP.montoCredito.setText(String.valueOf(valorTotal));
         viewP.setSize(250, 150);
-        viewP.setVisible(true);
-        viewP.setLocationRelativeTo(null);
+        viewP.mostrarComoModal(viewP);
+    }
+
+    @Override
+    public boolean confirPago() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'confirPago'");
     }
 }

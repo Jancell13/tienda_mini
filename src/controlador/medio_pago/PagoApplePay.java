@@ -9,9 +9,13 @@ public class PagoApplePay implements Pagos {
 
         metodosDePagos viewP = new metodosDePagos();
         viewP.listarMetodoApplePay();
-        viewP.montoCredito.setText(String.valueOf(valorTotal));
         viewP.setSize(520, 560);
-        viewP.setVisible(true);
-        viewP.setLocationRelativeTo(null);
+        viewP.mostrarComoModal(viewP);
+    }
+
+    @Override
+    public boolean confirPago() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'confirPago'");
     }
 }

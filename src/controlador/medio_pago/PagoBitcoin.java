@@ -9,9 +9,13 @@ public class PagoBitcoin implements Pagos {
         // crear metodo de pago PayPal
         metodosDePagos viewP = new metodosDePagos();
         viewP.listarMetodoBitcoin();
-        viewP.montoCredito.setText(String.valueOf(valorTotal));
         viewP.setSize(350, 420);
-        viewP.setVisible(true);
-        viewP.setLocationRelativeTo(null);
+        viewP.mostrarComoModal(viewP);
+    }
+
+    @Override
+    public boolean confirPago() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'confirPago'");
     }
 }
