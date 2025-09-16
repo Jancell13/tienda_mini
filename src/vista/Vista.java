@@ -44,6 +44,7 @@ public class Vista extends JFrame{
         //panel para los productoCompra, viene con scroll, tabla
         productoCompra = new JPanel(new GridLayout(1, 2,2,3));
         campos=new DefaultTableModel();
+        campos.addColumn("Id");
         campos.addColumn("Producto");
         campos.addColumn("PrecioUnd");
         campos.addColumn("Cantidad");
@@ -51,6 +52,9 @@ public class Vista extends JFrame{
         tabla = new JTable(campos);
         tabla.getTableHeader().setReorderingAllowed(false);
         tabla.getTableHeader().setResizingAllowed(false);
+        tabla.getColumnModel().getColumn(0).setMinWidth(0);
+        tabla.getColumnModel().getColumn(0).setMaxWidth(0);
+        tabla.getColumnModel().getColumn(0).setWidth(0);
         miScrollproductoCompra=new JScrollPane(tabla);
         miScrollproductoCompra.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         productoCompra.add(miScrollproductoCompra);
@@ -100,6 +104,7 @@ public class Vista extends JFrame{
         camposProducto.addColumn("PrecioUND");
         camposProducto.addColumn("CantidadStock");
         tablaProducto = new JTable(camposProducto);
+        
         //comando para evitar que muevan el healer con el mouse
         tablaProducto.getTableHeader().setReorderingAllowed(false);
         tablaProducto.getTableHeader().setResizingAllowed(false);

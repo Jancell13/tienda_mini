@@ -32,6 +32,7 @@ public class Registro extends JFrame{
     public Container container;
     private JPanel logoPrime, formuSegun;
     private JPanel containerFormu;
+    public JLabel  iniciarSesion;
     private FlowLayout miflow;
     private JPasswordField inputContraseña;
     public JTextField inputCorreo,inputNombre,inputApellido,inputDocumento;
@@ -91,7 +92,7 @@ public class Registro extends JFrame{
         inputContraseña = new JPasswordField(15);
         inputContraseña.setOpaque(false);
         inputContraseña.setBorder(campoContra);
-
+        
         // Botón
         registro = new JButton("Registrarse");
         registro.addActionListener(new ActionListener() {
@@ -100,6 +101,7 @@ public class Registro extends JFrame{
                 validarRegistro();
             }
         });
+        iniciarSesion = new JLabel("¿Tienes una cuenta? iniciar Sesión");
         // Panel que agrupa título, campos y botón en columna
         containerFormu = new JPanel(new GridLayout(0, 1, 10, 10));
         containerFormu.add(login);
@@ -109,6 +111,7 @@ public class Registro extends JFrame{
         containerFormu.add(inputCorreo);
         containerFormu.add(inputContraseña);
         containerFormu.add(registro);
+        containerFormu.add(iniciarSesion);
 
         // Agrego containerFormu dentro de auxFormu
         auxFormu.add(containerFormu);

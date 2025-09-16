@@ -10,6 +10,9 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -33,7 +36,7 @@ public class Login extends JFrame {
     private FlowLayout miflow;
     public JTextField inputCorreo;
     public JPasswordField inputContraseña;
-    private JLabel bienvenidos, login, logo;//titulos
+    private JLabel login, registrar;//titulos
     private TitledBorder campoCorreo, campoContra;
     public JButton ingresar;
 
@@ -75,6 +78,8 @@ public class Login extends JFrame {
         inputContraseña = new JPasswordField(15);
         inputContraseña.setOpaque(false);
         inputContraseña.setBorder(campoContra);
+        
+        registrar = new JLabel("¿No tienes una cuenta?");
 
         // Botón
         ingresar = new JButton("Iniciar Sesion");
@@ -85,6 +90,8 @@ public class Login extends JFrame {
         containerFormu.add(inputCorreo);
         containerFormu.add(inputContraseña);
         containerFormu.add(ingresar);
+        containerFormu.add(registrar);
+        
         
         ingresar.addActionListener(new ActionListener() {
             @Override

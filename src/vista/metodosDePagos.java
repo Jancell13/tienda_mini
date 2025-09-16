@@ -21,19 +21,16 @@ import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
 public class metodosDePagos extends JFrame  {
-    //numero de tarjeta, fecha de vencimiento, cvv //tarjeta de debito //4,2
-    //Boton(Continue)
-    //nombre titular,numero de tarjeta, fecha de vencimiento, cvv //tarjeta de credito
+    
     public Container container;
     private JLabel titleDebito,titleFechaDebito,titleCvvDebito;
     public JTextField numTarjeDebito,fechaTarjeDebito,numCvvDebito;
     private JLabel titleNombreCredito,titleCredito,titleFechaCredito,titleCvvCredito,titleMontoCredi;
-    public JLabel montoCredito;
+    public JLabel montoCredito,codigoConsig;
     public JTextField nombreCredito,numTarjeCredito,fechaTarjeCredito,numCvvCredito;
-    private JLabel titleNomTrans,titleNumCuenTra,titleNomBanTra,titleNumContaTra,titleMontoTrans,codigoConsig;
+    private JLabel titleNomTrans,titleNumCuenTra,titleNomBanTra,titleNumContaTra,titleMontoTrans;
     public JTextField correoPaypal;
-    private JLabel titleConsig,titleCorreoPaypal,codigoEfectivo;
-    private JLabel titleEfectivo;
+    private JLabel titleConsig,titleCorreoPaypal;
     public JTextField nomTrans,numCuentaTra,nomBanTra,numContaTra,montoTrans;
     public JPanel tarjetaCredito,tarjetaDebito,transferencia,consignacion,efectivo,paypal,bitcoin,applePay,googlePay;
     private JPanel codigoQr,codigoQrApple;
@@ -217,10 +214,6 @@ public class metodosDePagos extends JFrame  {
         montoRecibirEfecty = new JTextField(10);
         montoRecibirEfecty.setHorizontalAlignment(SwingConstants.RIGHT);
         
-        tittleMontoRegreso = new JLabel("Monto a Regresar");
-        montoRegresoEfecty = new JTextField(10);
-        montoRegresoEfecty.setEditable(false);
-        montoRegresoEfecty.setHorizontalAlignment(SwingConstants.RIGHT);
         pagarEfecty = new JButton("Pagar");
         pagarEfecty.addActionListener(new ActionListener() {
             @Override
@@ -233,8 +226,6 @@ public class metodosDePagos extends JFrame  {
         efectivo.add(totalPagarEfecty);
         efectivo.add(tittleMontoRecibir);
         efectivo.add(montoRecibirEfecty);
-        efectivo.add(tittleMontoRegreso);
-        efectivo.add(montoRegresoEfecty);
         efectivo.add(pagarEfecty);
         
         container.add(efectivo);
@@ -392,11 +383,10 @@ public class metodosDePagos extends JFrame  {
         return true;
     }
     public boolean validarCamposEfectivos() {
-        //montoRecibirEfecty = new JTextField(10);
-        String montoRecibir = montoRecibirEfecty.getText();
+        String montoRecibirEfec = montoRecibirEfecty.getText();
         
-        if(!Validaciones.validarNumeros(montoRecibir)){
-            JOptionPane.showMessageDialog(this,"monto a recibir invalido");
+        if(!Validaciones.validarNumeros(montoRecibirEfec)){
+            JOptionPane.showMessageDialog(this,"monto a recibirs invalido");
             return false;
         }
         return true;
