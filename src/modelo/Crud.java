@@ -9,4 +9,5 @@ public interface Crud<T> {
     public int setEliminar(int id);
     public int getCantidad(int id);
     public int setActualizarCantidad(int id, int cantidad);
+    public int getConsultar(int id);
 }

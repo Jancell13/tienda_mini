@@ -123,4 +123,25 @@ public class ProductoDao implements Crud<Producto> {
         }
     }
 
+     @Override
+    public int getConsultar(int id) {
+        String sql = "SELECT * FROM producto WHERE id = ?";
+
+        try (
+            Connection con = Conexion.getInstance().getConnection();
+            PreparedStatement ps = con.prepareStatement(sql)
+        ) {
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.toString(), "Error de Consulta por id", JOptionPane.ERROR_MESSAGE);
+        }
+
+        return 0;
+    }
+
 }
