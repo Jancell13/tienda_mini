@@ -66,7 +66,7 @@ public class Vista extends JFrame{
         medioPago = new JPanel(new BorderLayout());
         
         medioPagoBtn = new JPanel(new GridLayout(2,2));
-        modoDePago = new JComboBox();
+        modoDePago = new JComboBox<String>();
         pagar = new JButton("Pagar");
         invi = new JButton("Pagar");
         invi.setVisible(false);
