@@ -57,4 +57,3 @@ public class CuentaClienDao implements Cuentacli<Cuentacliente> {
     
 
 }
-

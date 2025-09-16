@@ -8,15 +8,17 @@ public class Usuario {
     private String apellido;
     private String email;
     private String password;
+    private int rol;
    
 
-    public Usuario(int id, int  documento, String nombre, String apellido, String email, String password) {
+    public Usuario(int id, int  documento, String nombre, String apellido, String email, String password, int rol) {
         this.id = id;
         this.documento = documento;
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
         this.password = password;
+        this.rol = rol;
     }
 
     public Usuario() {
@@ -69,6 +71,14 @@ public class Usuario {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getRol() {
+        return rol;
+    }
+
+    public void setRol(int rol) {
+        this.rol = rol;
     }
         
 }
