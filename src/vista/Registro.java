@@ -1,7 +1,6 @@
 package vista;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -11,8 +10,6 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -70,26 +67,31 @@ public class Registro extends JFrame{
         // Campos
         campoNombre = new TitledBorder("Nombres de Usuario*");
         inputNombre = new JTextField(15);
+        UtilidadesSwing.agregarPlaceholder(inputNombre, "Pepito");
         inputNombre.setOpaque(false);
         inputNombre.setBorder(campoNombre);
         
         campoApellido = new TitledBorder("Apellidos de usuario*");
         inputApellido = new JTextField(15);
+        UtilidadesSwing.agregarPlaceholder(inputApellido, "Perez");
         inputApellido.setOpaque(false);
         inputApellido.setBorder(campoApellido);
         
         campoDocumento = new TitledBorder("Documento de usuario*");
         inputDocumento = new JTextField(15);
+        UtilidadesSwing.agregarPlaceholder(inputDocumento, "123456789");
         inputDocumento.setOpaque(false);
         inputDocumento.setBorder(campoDocumento);
         
         campoCorreo = new TitledBorder("Correo Electronico");
         inputCorreo = new JTextField(15);
+        UtilidadesSwing.agregarPlaceholder(inputCorreo, "Pepito@gmail.com");
         inputCorreo.setOpaque(false);
         inputCorreo.setBorder(campoCorreo);
 
         campoContra = new TitledBorder("Contraseña");
         inputContraseña = new JPasswordField(15);
+        UtilidadesSwing.agregarPlaceholder(inputContraseña, "Pepires");
         inputContraseña.setOpaque(false);
         inputContraseña.setBorder(campoContra);
         

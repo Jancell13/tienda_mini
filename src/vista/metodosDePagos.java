@@ -1,6 +1,7 @@
 package vista;
 
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -16,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
@@ -24,10 +26,10 @@ public class metodosDePagos extends JFrame  {
     
     public Container container;
     private JLabel titleDebito,titleFechaDebito,titleCvvDebito;
-    public JTextField numTarjeDebito,fechaTarjeDebito,numCvvDebito;
+    public JTextField numTarjeDebito,fechaTarjeDebito;
     private JLabel titleNombreCredito,titleCredito,titleFechaCredito,titleCvvCredito,titleMontoCredi;
     public JLabel montoCredito,codigoConsig;
-    public JTextField nombreCredito,numTarjeCredito,fechaTarjeCredito,numCvvCredito;
+    public JTextField nombreCredito,numTarjeCredito,fechaTarjeCredito;
     private JLabel titleNomTrans,titleNumCuenTra,titleNomBanTra,titleNumContaTra,titleMontoTrans;
     public JTextField correoPaypal;
     private JLabel titleConsig,titleCorreoPaypal;
@@ -35,8 +37,9 @@ public class metodosDePagos extends JFrame  {
     public JPanel tarjetaCredito,tarjetaDebito,transferencia,consignacion,efectivo,paypal,bitcoin,applePay,googlePay;
     private JPanel codigoQr,codigoQrApple;
     private TitledBorder titulo,titulo2,titulo3,titulo4,titulo5,titulo6,titulo7,titulo8;
-    public JButton confirCredi,confirDebito, confirTransfer, confirPaypal;
+    public JButton confirCredi,confirDebito, confirTransfer, confirPaypal,confirConsig;
     private FlowLayout miflow;
+    public JPasswordField numCvvCredito,numCvvDebito;
     
     private JLabel tittleTotalPagar, tittleMontoRecibir, tittleMontoRegreso;
     public JTextField totalPagarEfecty, montoRecibirEfecty, montoRegresoEfecty;
@@ -48,7 +51,6 @@ public class metodosDePagos extends JFrame  {
         container = getContentPane();
         miflow = new FlowLayout();
         container.setLayout(miflow);
-        //Google Play
     }
     public void listarMetodoCredito(){
         //Agrego la tarjeta de credito
@@ -58,15 +60,19 @@ public class metodosDePagos extends JFrame  {
         
         titleNombreCredito = new JLabel("Nombre del Titular");
         nombreCredito = new JTextField(10);
+        UtilidadesSwing.agregarPlaceholder(nombreCredito, "Pepito Perez");
         
         titleCredito = new JLabel("Numero de Tarjeta");//titulo
-        numTarjeCredito = new JTextField(10);//agregar o escribir 
+        numTarjeCredito = new JTextField(10);//agregar o escribir
+        UtilidadesSwing.agregarPlaceholder(numTarjeCredito, "51234567891234");
         
         titleFechaCredito = new JLabel("Fecha Vencimiento");
         fechaTarjeCredito = new JTextField(10);
+        UtilidadesSwing.agregarPlaceholder(fechaTarjeCredito, "02/24");
         
         titleCvvCredito = new JLabel("CVV");
-        numCvvCredito = new JTextField(10);
+        numCvvCredito = new JPasswordField(10);
+        UtilidadesSwing.agregarPlaceholder(numCvvCredito, "1234");
         
         titleMontoCredi = new JLabel("Monto a pagar");
         montoCredito = new JLabel();
@@ -102,13 +108,16 @@ public class metodosDePagos extends JFrame  {
         tarjetaDebito.setBorder(titulo);
         
         titleDebito = new JLabel("Numero de Debito");//titulo
-        numTarjeDebito = new JTextField(10);//agregar o escribir 
+        numTarjeDebito = new JTextField(10);//agregar o escribir
+        UtilidadesSwing.agregarPlaceholder(numTarjeDebito, "51234567891234");
         
         titleFechaDebito = new JLabel("Fecha Vencimiento");
         fechaTarjeDebito = new JTextField(10);
+        UtilidadesSwing.agregarPlaceholder(fechaTarjeDebito, "02/24");
         
         titleCvvDebito = new JLabel("CVV");
-        numCvvDebito = new JTextField(10);
+        numCvvDebito = new JPasswordField(10);
+        UtilidadesSwing.agregarPlaceholder(numCvvDebito, "1234");
         
         titleMontoCredi = new JLabel("Monto a pagar");
         montoCredito = new JLabel();
@@ -142,18 +151,23 @@ public class metodosDePagos extends JFrame  {
         
         titleNomTrans = new JLabel("Nombre del Destinatario");
         nomTrans = new JTextField(10);
+        UtilidadesSwing.agregarPlaceholder(nomTrans, "Pepito Perez");
         
         titleNumCuenTra = new JLabel("Numero de cuenta");
         numCuentaTra = new JTextField(10);
+        UtilidadesSwing.agregarPlaceholder(numCuentaTra, "51234567891234");
         
         titleNomBanTra = new JLabel("Nombre de banco");
         nomBanTra = new JTextField(10);
+        UtilidadesSwing.agregarPlaceholder(nomBanTra, "Bancolombia");
         
         titleNumContaTra = new JLabel("Numero de contacto");
         numContaTra = new JTextField(10);
+        UtilidadesSwing.agregarPlaceholder(numContaTra, "3123456789");
         
         titleMontoTrans = new JLabel("Monto a Transferir");
         montoTrans = new JTextField(10);
+        UtilidadesSwing.agregarPlaceholder(montoTrans, "35000");
         
         confirTransfer = new JButton("Continuar");
         confirTransfer.addActionListener(new ActionListener() {
@@ -191,16 +205,16 @@ public class metodosDePagos extends JFrame  {
         montoCredito = new JLabel();
         montoCredito.setHorizontalAlignment(SwingConstants.RIGHT);
         
+        confirConsig = new JButton("continue");
+        
         consignacion.add(titleConsig);
         consignacion.add(codigoConsig);
         consignacion.add(titleMontoCredi);
         consignacion.add(montoCredito);
+        consignacion.add(confirConsig);
         container.add(consignacion);
     }
     public void listarMetodoEfectivo(){
-        //Efectivo
-        /*
-        */
         efectivo = new JPanel(new GridLayout(0,2,2,2));
         titulo5 = new TitledBorder("Efectivo");
         efectivo.setBorder(titulo5);
@@ -212,6 +226,7 @@ public class metodosDePagos extends JFrame  {
         
         tittleMontoRecibir = new JLabel("Monto a Recibir");
         montoRecibirEfecty = new JTextField(10);
+        UtilidadesSwing.agregarPlaceholder(montoRecibirEfecty, "25000");
         montoRecibirEfecty.setHorizontalAlignment(SwingConstants.RIGHT);
         
         pagarEfecty = new JButton("Pagar");
@@ -231,13 +246,13 @@ public class metodosDePagos extends JFrame  {
         container.add(efectivo);
     }
     public void listarMetodoPaypal(){
-        //paypal       -       correo
         paypal = new JPanel(new GridLayout(0,2,2,2));
         titulo6 = new TitledBorder("Paypal");
         paypal.setBorder(titulo6);
         
         titleCorreoPaypal = new JLabel("Correo de Paypal");
         correoPaypal = new JTextField(15);
+        UtilidadesSwing.agregarPlaceholder(correoPaypal, "Pepito1234@gmail.com");
         
         titleMontoCredi = new JLabel("Monto a pagar");
         montoCredito = new JLabel();
@@ -254,6 +269,7 @@ public class metodosDePagos extends JFrame  {
         paypal.add(correoPaypal);
         paypal.add(titleMontoCredi);
         paypal.add(montoCredito);
+        paypal.add(confirPaypal);
         container.add(paypal);
     }
     public void listarMetodoBitcoin(){
@@ -343,8 +359,6 @@ public class metodosDePagos extends JFrame  {
         return true;
     }
     public boolean validarCamposTransferencia() {
-        /*
-        */
         String nombreDestinatario = nomTrans.getText();
         String numeroCuenta = numCuentaTra.getText();
         String nombreBanco = nomBanTra.getText();
@@ -392,7 +406,7 @@ public class metodosDePagos extends JFrame  {
         return true;
     }
     public void mostrarComoModal(JFrame parent) {
-        JDialog dialog = new JDialog(parent, "Métodos de Pago", true); // true = modal
+        JDialog dialog = new JDialog(parent, "Métodos de Pago", true);
         dialog.setContentPane(this.getContentPane());
         dialog.setSize(this.getSize());
         dialog.setLocationRelativeTo(parent);

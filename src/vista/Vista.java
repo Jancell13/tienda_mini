@@ -70,7 +70,7 @@ public class Vista extends JFrame{
         pagar = new JButton("Pagar");
         invi = new JButton("Pagar");
         invi.setVisible(false);
-        registrar = new JButton("Registrar");
+        registrar = new JButton("Registrar Producto");
         medioPagoBtn.add(modoDePago);
         medioPagoBtn.add(pagar);
         medioPagoBtn.add(invi);

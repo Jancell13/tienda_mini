@@ -3,11 +3,8 @@ package vista;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -47,12 +44,13 @@ public class VistaRegistrar extends JFrame{
         lcantidad=new JLabel("Cantidad");
         //campos de texto
         tid=new JTextField(15);
-        
+        UtilidadesSwing.agregarPlaceholder(tid, "2");
         tnombre=new JTextField(10);
-        
+        UtilidadesSwing.agregarPlaceholder(tnombre, "Camisa");
         tprecio=new JTextField(10);
-        
+        UtilidadesSwing.agregarPlaceholder(tprecio, "35000");
         tcantidad=new JTextField(10);
+        UtilidadesSwing.agregarPlaceholder(tcantidad, "35");
         /*tcantidad.setForeground(Color.BLUE);
         tcantidad.setFont(new Font("Time new roman", Font.BOLD, 15));*/
         

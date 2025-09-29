@@ -36,7 +36,7 @@ public class Login extends JFrame {
     private FlowLayout miflow;
     public JTextField inputCorreo;
     public JPasswordField inputContraseña;
-    private JLabel login, registrar;//titulos
+    public JLabel login, registrar;//titulos
     private TitledBorder campoCorreo, campoContra;
     public JButton ingresar;
 
