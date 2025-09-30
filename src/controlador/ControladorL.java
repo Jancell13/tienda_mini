@@ -32,39 +32,18 @@ public class ControladorL implements ActionListener {
                 formuRegistro();
             }
         });
+        this.viewLogin.inputContraseña.addActionListener(this);
         this.viewLogin.registrar.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == viewLogin.inputContraseña) {
+            logicaParaLogin();
+        }
 
         if (e.getSource() == viewLogin.ingresar) {
-
-            String correo = viewLogin.inputCorreo.getText();
-            String contraseña = viewLogin.inputContraseña.getPassword().toString();
-
-            if (!Validaciones.validarCorreo(correo)) {
-                JOptionPane.showMessageDialog(this.viewLogin, "Campo de Correo no valido, ejemplo:\nmicorreo@algo.com");
-                return;
-            } else if (!Validaciones.validarContraseña(contraseña)) {
-                JOptionPane.showMessageDialog(this.viewLogin, "Campo Contraseña no valida");
-                return;
-            } else {
-                List<Usuario> user = udao.getUsuarioPorCorreo(viewLogin.inputCorreo.getText());
-                Object[] object = new Object[3];
-                for (int indice = 0; indice < user.size(); indice++) {
-
-                    object[0] = user.get(indice).getEmail();
-                    object[1] = user.get(indice).getPassword();
-                    object[2] = user.get(indice).getRol();
-                }
-                if (viewLogin.inputCorreo.getText().equals(object[0])
-                        && String.valueOf(viewLogin.inputContraseña.getPassword()).equals(object[1])) {
-                    validarRol(Integer.parseInt(object[2].toString()));
-                } else {
-                    JOptionPane.showMessageDialog(this.viewLogin, "Usuario o contraseña incorrectos");
-                }
-            }
+            logicaParaLogin();
         }
     }
 
@@ -88,7 +67,7 @@ public class ControladorL implements ActionListener {
         viewLogin.setVisible(false);
     }
 
-    public void limpiarCampos() {
+    private void limpiarCampos() {
         viewLogin.inputCorreo.setText("");
         viewLogin.inputContraseña.setText("");
     }
@@ -111,6 +90,35 @@ public class ControladorL implements ActionListener {
             viewLogin.setVisible(false);
         } catch (IOException ioe) {
             System.out.println(ioe);
+        }
+    }
+
+    private void logicaParaLogin() {
+        String correo = viewLogin.inputCorreo.getText();
+        String contraseña = new String(viewLogin.inputContraseña.getPassword());
+
+        if (!Validaciones.validarCorreo(correo)) {
+            JOptionPane.showMessageDialog(this.viewLogin, "Campo de Correo no valido, ejemplo:\nmicorreo@algo.com");
+            return;
+        } else if (!Validaciones.validarContraseña(contraseña)) {
+            JOptionPane.showMessageDialog(this.viewLogin, "Campo Contraseña no valida");
+            return;
+        } else {
+            List<Usuario> user = udao.getUsuarioPorCorreo(viewLogin.inputCorreo.getText());
+            Object[] object = new Object[4];
+
+            object[0] = user.get(0).getId();
+            object[1] = user.get(0).getEmail();
+            object[2] = user.get(0).getPassword();
+            object[3] = user.get(0).getRol();
+
+            if (viewLogin.inputCorreo.getText().equals(object[1])
+                    && String.valueOf(viewLogin.inputContraseña.getPassword()).equals(object[2])) {
+                validarRol(Integer.parseInt(object[3].toString()));
+                controlador.UsuarioSesion.idUsuario = ((int) object[0]);
+            } else {
+                JOptionPane.showMessageDialog(this.viewLogin, "Usuario o contraseña incorrectos");
+            }
         }
     }
 }
