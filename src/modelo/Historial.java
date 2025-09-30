@@ -2,16 +2,17 @@ package modelo;
 
 public class Historial {
     private int id;
-    private int id_usuario_producto ;
+    private int id_producto;
     private int id_usuario;
     private String fecha;
     private int cantidad_compra;
-    private int precio_total;
-    private int id_metodo_pago ;
+    private double precio_total;
+    private int id_metodo_pago;
 
-    public Historial(int id, int id_usuario_producto, int id_usuario, String fecha, int cantidad_compra, int precio_total, int id_metodo_pago) {
+    public Historial(int id, int id_producto, int id_usuario, String fecha, int cantidad_compra, double precio_total,
+            int id_metodo_pago) {
         this.id = id;
-        this.id_usuario_producto = id_usuario_producto;
+        this.id_producto = id_producto;
         this.id_usuario = id_usuario;
         this.fecha = fecha;
         this.cantidad_compra = cantidad_compra;
@@ -19,8 +20,8 @@ public class Historial {
         this.id_metodo_pago = id_metodo_pago;
     }
 
-    public Historial(){
-        
+    public Historial() {
+
     }
 
     public int getId() {
@@ -31,12 +32,12 @@ public class Historial {
         this.id = id;
     }
 
-    public int getId_usuario_producto() {
-        return id_usuario_producto;
+    public int getId_producto() {
+        return id_producto;
     }
 
-    public void setId_usuario_producto(int id_usuario_producto) {
-        this.id_usuario_producto = id_usuario_producto;
+    public void setId_producto(int id_producto) {
+        this.id_producto = id_producto;
     }
 
     public int getId_usuario() {
@@ -63,11 +64,11 @@ public class Historial {
         this.cantidad_compra = cantidad_compra;
     }
 
-    public int getPrecio_total() {
+    public double getPrecio_total() {
         return precio_total;
     }
 
-    public void setPrecio_total(int precio_total) {
+    public void setPrecio_total(double precio_total) {
         this.precio_total = precio_total;
     }
 
@@ -79,5 +80,4 @@ public class Historial {
         this.id_metodo_pago = id_metodo_pago;
     }
 
-    
 }

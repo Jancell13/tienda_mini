@@ -35,7 +35,7 @@ public class ProductoDao implements Crud<Producto> {
 
     @Override
     public int setAgregar(Producto p) {
-        String sql = "INSERT INTO producto VALUES (?,?,?,?)";
+        String sql = "INSERT INTO `producto`(`id`, `nombre`, `precio`, `cantidad_stock`) VALUES (?,?,?,?);";
 
         try (
                 Connection con = Conexion.getInstance().getConnection();

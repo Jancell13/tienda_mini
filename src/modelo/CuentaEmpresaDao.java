@@ -8,22 +8,22 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-public class CuentaClienDao implements Cuentacli<Cuentacliente> {
+public class CuentaEmpresaDao implements Cuentaem<Cuentaempresa> {
 
     @Override
-    public List<Cuentacliente> listar(int id_usuario) {
-        List<Cuentacliente> datos = new ArrayList<>();
-        String sql = "SELECT * FROM cuenta_cliente WHERE id_usuario=?";
+    public List<Cuentaempresa> listar(int id) {
+        List<Cuentaempresa> datos = new ArrayList<>();
+        String sql = "SELECT * FROM cuenta_entidad WHERE id=?";
 
         try (
                 Connection con = Conexion.getInstance().getConnection();
                 PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, id_usuario);
+            ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    Cuentacliente c = new Cuentacliente();
-                    c.setId_usuario(rs.getInt(1));
-                    c.setSaldo(rs.getDouble(3));
+                    Cuentaempresa c = new Cuentaempresa();
+                    c.setId(rs.getInt(1));
+                    c.setSaldo(rs.getDouble(2));
                     datos.add(c);
                 }
             }
@@ -35,14 +35,14 @@ public class CuentaClienDao implements Cuentacli<Cuentacliente> {
     }
 
     @Override
-    public int setActualizar(Cuentacliente c) {
-        String sql = "UPDATE cuenta_cliente SET saldo=? WHERE id_usuario=?";
+    public int setActualizar(Cuentaempresa c) {
+        String sql = "UPDATE cuenta_entidad SET saldo=? WHERE id=?";
 
         try (
                 Connection con = Conexion.getInstance().getConnection();
                 PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setDouble(1, c.getSaldo());
-            ps.setInt(2, c.getId_usuario());
+            ps.setInt(2, c.getId());
             return ps.executeUpdate();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.toString(), "Error de Actualizacion", JOptionPane.ERROR_MESSAGE);

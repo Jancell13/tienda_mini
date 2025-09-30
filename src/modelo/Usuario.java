@@ -9,9 +9,8 @@ public class Usuario {
     private String email;
     private String password;
     private int rol;
-   
 
-    public Usuario(int id, int  documento, String nombre, String apellido, String email, String password, int rol) {
+    public Usuario(int id, int documento, String nombre, String apellido, String email, String password, int rol) {
         this.id = id;
         this.documento = documento;
         this.nombre = nombre;
@@ -22,7 +21,7 @@ public class Usuario {
     }
 
     public Usuario() {
-        
+
     }
 
     public int getId() {
@@ -73,12 +72,12 @@ public class Usuario {
         this.password = password;
     }
 
+    public void setRol(int rol) {
+        this.rol = rol;
+    }
+
     public int getRol() {
         return rol;
     }
 
-    public void setRol(int rol) {
-        this.rol = rol;
-    }
-        
 }
